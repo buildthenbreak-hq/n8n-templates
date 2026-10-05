@@ -1,0 +1,350 @@
+{
+  "name": "Video 1 Contact form AI",
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "Contact US",
+        "formDescription": "Tell us what you need and we will reply within one business day.",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Name",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Email",
+              "fieldType": "email",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Message",
+              "fieldType": "textarea",
+              "requiredField": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.6,
+      "position": [
+        0,
+        0
+      ],
+      "id": "2de9130e-e2d4-4b64-935b-fb086662398a",
+      "name": "On form submission",
+      "webhookId": "f7047a62-f621-4545-a746-834264f26812"
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "gpt-4o-mini",
+          "mode": "list",
+          "cachedResultName": "GPT-4O-MINI"
+        },
+        "responses": {
+          "values": [
+            {
+              "content": "=Classify the following contact form message as exactly one of: sales, support, spam.\nReply with one word only, in lowercase.\n\nMessage: {{ $json.Message }}"
+            }
+          ]
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 2.3,
+      "position": [
+        448,
+        0
+      ],
+      "id": "49ddcce7-665f-4b13-842e-8176a6bc4b63",
+      "name": "Message a model",
+      "credentials": {
+        "openAiApi": {
+          "id": null,
+          "name": "",
+          "__aiGatewayManaged": true
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1Cewk55I_G7ECkAViFSNXRAccgmRvQjCIJKXTgEo1JFk",
+          "mode": "list",
+          "cachedResultName": "BTB Leads Demo",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Cewk55I_G7ECkAViFSNXRAccgmRvQjCIJKXTgEo1JFk/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Cewk55I_G7ECkAViFSNXRAccgmRvQjCIJKXTgEo1JFk/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Name": "={{ $('On form submission').item.json.Name }}",
+            "Email": "={{ $('On form submission').item.json.Email }}",
+            "Message": "={{ $('On form submission').item.json.Message }}",
+            "Category": "={{ $json.output[0].content[0].text }}",
+            "Received_at": "={{ $('On form submission').item.json.submittedAt }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Message",
+              "displayName": "Message",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Category",
+              "displayName": "Category",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Received_at",
+              "displayName": "Received_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        816,
+        0
+      ],
+      "id": "87336080-b1ed-4ef9-852a-6cc03edc7b1d",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "hadLHwvdel4tnpIh",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": false,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "90060c14-4927-45c5-a32c-983fd77d1171",
+              "leftValue": "={{ $('Message a model').item.json.output[0].content[0].text }}",
+              "rightValue": "sales",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {
+          "ignoreCase": true
+        }
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        1040,
+        0
+      ],
+      "id": "22e70422-c0b8-4d5b-bee5-e5a4e0ba4ac9",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "sendTo": "buildthenbreak.hq@gmail.com",
+        "subject": "=New sales lead: {{ $('On form submission').item.json.Name }}",
+        "emailType": "text",
+        "message": "={{ $('On form submission').item.json.Name }}\n{{ $('On form submission').item.json.Email }}\n{{ $('On form submission').item.json.Message }}",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        1264,
+        -96
+      ],
+      "id": "780d714f-12b1-4199-ad23-b4ffb0007738",
+      "name": "Send a message",
+      "webhookId": "153b0c17-e54d-4cc4-a2d3-cf54ba435118",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "7CiSLciu3YjHFegE",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "removeItemsSeenInPreviousExecutions",
+        "dedupeValue": "={{ $json.Email }}-{{ $json.Message }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.removeDuplicates",
+      "typeVersion": 2,
+      "position": [
+        224,
+        0
+      ],
+      "id": "e578b104-6d8f-4c8f-84d8-89a3763ac7c1",
+      "name": "Remove Duplicates"
+    },
+    {
+      "parameters": {
+        "operation": "removeItemsSeenInPreviousExecutions",
+        "dedupeValue": "={{ $json.Email }}-{{ $json.Message }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.removeDuplicates",
+      "typeVersion": 2,
+      "position": [
+        112,
+        96
+      ],
+      "id": "99d6b1ac-6a96-4f8a-b021-2fb6add55941",
+      "name": "Remove Duplicates1"
+    },
+    {
+      "parameters": {
+        "operation": "removeItemsSeenInPreviousExecutions",
+        "dedupeValue": "={{ $json.Email }}-{{ $json.Message }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.removeDuplicates",
+      "typeVersion": 2,
+      "position": [
+        256,
+        240
+      ],
+      "id": "b1fd4375-ced7-4ab7-9772-f794ef652189",
+      "name": "Remove Duplicates2"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "Remove Duplicates",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message a model": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Remove Duplicates": {
+      "main": [
+        [
+          {
+            "node": "Message a model",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": true
+  },
+  "versionId": "164329e2-b725-458d-8648-b98c4fefe46a",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "a91a64d7572456e24f663d9ffbac25a6a3ce98438cb4cf0ca475dc11d187c47a"
+  },
+  "nodeGroups": [],
+  "id": "aa1jERKD5KxkaYyq",
+  "tags": []
+}
