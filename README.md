@@ -4,6 +4,7 @@ Free workflows from the Build Then Break YouTube channel (https://www.youtube.co
 
 ## Workflows
 - Video 1: n8n contact form AI classifier (Form > OpenAI > Google Sheets > Gmail)
+  Video 1 needs a Google Sheet with these columns: Name, Email, Message, Category, Received_at (see video1-leads-sheet-headers.csv).
 - Video 2: Lead Router (Google Sheets trigger > Gemini > Sheets update > If > Gmail), the n8n build from "Zapier vs Make vs n8n"
 - Video 3: AI agent lead assistant (Chat trigger > AI Agent with memory, Google Sheets tool and Gmail tool), from "What Is an AI Agent?"
 
