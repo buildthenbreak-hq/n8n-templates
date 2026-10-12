@@ -7,6 +7,8 @@ Free workflows from the Build Then Break YouTube channel (https://www.youtube.co
   Video 1 needs a Google Sheet with these columns: Name, Email, Message, Category, Received_at (see video1-leads-sheet-headers.csv).
 - Video 2: Lead Router (Google Sheets trigger > Gemini > Sheets update > If > Gmail), the n8n build from "Zapier vs Make vs n8n"
 - Video 3: AI agent lead assistant (Chat trigger > AI Agent with memory, Google Sheets tool and Gmail tool), from "What Is an AI Agent?"
+- Video 5: Chat With Your PDFs in n8n (RAG). Form upload, Simple Vector Store, Gemini embeddings, AI Agent with two document tools. Test PDFs included.
+- Video 6: AI Email Assistant in n8n. Gmail trigger, AI Text Classifier, labels, draft replies (never sends), AI Processed label and mark as read.
 
 ## How to import
 1. Download the .json file.
