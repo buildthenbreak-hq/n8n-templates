@@ -1,0 +1,201 @@
+{
+  "name": "Demo 2 Invoice to sheet",
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "Upload Invoice",
+        "formDescription": "Upload a PDF invoice and it goes straight into the sheet",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Invoice",
+              "fieldType": "file",
+              "multipleFiles": false,
+              "acceptFileTypes": ".pdf",
+              "requiredField": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.6,
+      "position": [
+        0,
+        0
+      ],
+      "id": "bc7a0bdc-1f0d-48a7-b06b-507e9fcf9d98",
+      "name": "On form submission"
+    },
+    {
+      "parameters": {
+        "jsCode": "const raw = $input.first().json.content.parts[0].text;\nconst clean = raw.replace(/```json|```/g, '').trim();\nlet data = {};\ntry { data = JSON.parse(clean); } catch (e) { data = { vendor: 'PARSE FAILED', date: '', total: '' }; }\nreturn [{ json: data }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        672,
+        0
+      ],
+      "id": "c6951799-dea7-40b5-a678-24628228b212",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1Phs2rpjNW7VujWny6eRmS9ROK4T8hZTotmpE0ufDYS0",
+          "mode": "list",
+          "cachedResultName": "Small Business Demo",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Phs2rpjNW7VujWny6eRmS9ROK4T8hZTotmpE0ufDYS0/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 536173170,
+          "mode": "list",
+          "cachedResultName": "Invoices",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Phs2rpjNW7VujWny6eRmS9ROK4T8hZTotmpE0ufDYS0/edit#gid=536173170"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Vendor": "={{ $json.vendor }}",
+            "Data": "={{ $json.date }}",
+            "Total": "={{ $json.total }}",
+            "File": "={{ $('On form submission').item.json.Invoice.filename }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Vendor",
+              "displayName": "Vendor",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Data",
+              "displayName": "Data",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Total",
+              "displayName": "Total",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "File",
+              "displayName": "File",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1040,
+        0
+      ],
+      "id": "f3c74b96-d435-4307-928a-6d64c912f8b0",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": null,
+          "name": ""
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "document",
+        "modelId": {
+          "__rl": true,
+          "value": "models/gemini-3.5-flash",
+          "mode": "list",
+          "cachedResultName": "models/gemini-3.5-flash"
+        },
+        "text": "This is an invoice. Return ONLY a JSON object with keys vendor, date, total (number, no currency sign). No explanation, no markdown.",
+        "inputType": "binary",
+        "binaryPropertyName": "Invoice",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1.2,
+      "position": [
+        368,
+        0
+      ],
+      "id": "fc912088-6897-4beb-85e9-a104078d50fa",
+      "name": "Analyze document",
+      "credentials": {
+        "googlePalmApi": {
+          "id": null,
+          "name": ""
+        }
+      }
+    }
+  ],
+  "connections": {
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "Analyze document",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Analyze document": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "nodeGroups": []
+}

@@ -1,0 +1,148 @@
+{
+  "name": "video 9 Error Alerts",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.errorTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "50e87d1c-ba9e-4cf1-8dc9-4c779e3c21e8",
+      "name": "Error Trigger"
+    },
+    {
+      "parameters": {
+        "sendTo": "buildthenbreak.hq@gmail.com",
+        "subject": "=n8n failed: {{ $json.workflow.name }}",
+        "emailType": "text",
+        "message": "=Workflow: {{ $json.workflow.name }} Node: {{ $json.execution.lastNodeExecuted }} Error: {{ $json.execution.error.message }} Time: {{ $now.toFormat('d LLL yyyy, HH:mm') }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        224,
+        0
+      ],
+      "id": "33cd6ed4-8700-45f6-a943-fb1fc90d66b1",
+      "name": "Send a message",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": null,
+          "name": ""
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1Cewk55I_G7ECkAViFSNXRAccgmRvQjCIJKXTgEo1JFk",
+          "mode": "list",
+          "cachedResultName": "BTB Leads Demo",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Cewk55I_G7ECkAViFSNXRAccgmRvQjCIJKXTgEo1JFk/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1775646808,
+          "mode": "list",
+          "cachedResultName": "Alert Log",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Cewk55I_G7ECkAViFSNXRAccgmRvQjCIJKXTgEo1JFk/edit#gid=1775646808"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Time": "={{ $now.toISO() }}",
+            "Workflow": "={{ $('Error Trigger').item.json.workflow.name }}",
+            "Error": "={{ $('Error Trigger').item.json.execution.error.message || $('Error Trigger').item.json.execution.error.description }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Time",
+              "displayName": "Time",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Workflow",
+              "displayName": "Workflow",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Error",
+              "displayName": "Error",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        448,
+        96
+      ],
+      "id": "89346e15-1e48-4c39-8592-8588f6988ab9",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": null,
+          "name": ""
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Error Trigger": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a message": {
+      "main": [
+        [],
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "nodeGroups": []
+}

@@ -1,0 +1,238 @@
+{
+  "name": "Video 7 AI Calendar Booking Agent",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.5,
+      "position": [
+        48,
+        0
+      ],
+      "id": "8ee6ee96-1710-4680-ac44-0076855fe336",
+      "name": "When chat message received"
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "=Today is {{ $now.toFormat('cccc, d LLLL yyyy') }} and the time now is {{ $now.toFormat('HH:mm') }}. All times are in Asia/Karachi time.\n\nYou book meetings in the BTB Demo Bookings calendar.\nRules:\n- If the date or time is missing, ask for it. Never choose a time yourself.\n- Before booking, use list_events for that whole day (9 AM to 6 PM) and check_availability for the exact slot.\n- If the same person already has a meeting at that time, say it is already booked. Do not book it again.\n- If the slot is busy, offer free times on the same day first. Never say a day is fully booked unless list_events shows no free time between 9 AM and 6 PM.\n- Meetings are 30 minutes unless the user says otherwise.\n- After booking, confirm the day, date and time in Pakistan time.\n\n- Never book a different time than the one the user asked for. If that slot is busy, suggest free times and wait for the user to confirm before booking.\n- Use the person's name exactly as the user wrote it."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        224,
+        0
+      ],
+      "id": "d5508fce-c1b7-42c3-b4dc-877cb444f23f",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-3.5-flash-lite",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1.2,
+      "position": [
+        96,
+        208
+      ],
+      "id": "1d080374-82a7-4845-b353-f84612bd231c",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": null,
+          "name": ""
+        }
+      }
+    },
+    {
+      "parameters": {
+        "contextWindowLength": 10
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.4,
+      "position": [
+        240,
+        208
+      ],
+      "id": "988285e0-a4d2-4cb4-b70f-303ac2d3f371",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "resource": "calendar",
+        "calendar": {
+          "__rl": true,
+          "value": "c1eba8b017b9292a48395658587a9d2946edd6612aa0d1321df14d832a644662@group.calendar.google.com",
+          "mode": "list",
+          "cachedResultName": "BTB Demo Bookings"
+        },
+        "timeMin": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Start_Time', ``, 'string') }}",
+        "timeMax": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('End_Time', ``, 'string') }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleCalendarTool",
+      "typeVersion": 1.3,
+      "position": [
+        416,
+        160
+      ],
+      "id": "ebe206f3-a54a-4efb-bede-9196206255df",
+      "name": "check_availability",
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": null,
+          "name": ""
+        }
+      }
+    },
+    {
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "Creates a meeting in the BTB Demo Bookings calendar.",
+        "calendar": {
+          "__rl": true,
+          "value": "c1eba8b017b9292a48395658587a9d2946edd6612aa0d1321df14d832a644662@group.calendar.google.com",
+          "mode": "list",
+          "cachedResultName": "BTB Demo Bookings"
+        },
+        "start": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Start', `Start of the meeting, as a full date and time.`, 'string') }}",
+        "end": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('End', `End of the meeting, as a full date and time.`, 'string') }}",
+        "additionalFields": {
+          "summary": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Summary', `Meeting title, for example: Call with Alex.`, 'string') }}"
+        }
+      },
+      "type": "n8n-nodes-base.googleCalendarTool",
+      "typeVersion": 1.3,
+      "position": [
+        576,
+        160
+      ],
+      "id": "aa24aab2-54f8-48bc-b325-eede297b7156",
+      "name": "create_event",
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": null,
+          "name": ""
+        }
+      }
+    },
+    {
+      "parameters": {
+        "descriptionType": "manual",
+        "toolDescription": "Lists the meetings already booked in a time period, with their titles. Use it to see what is busy and who the meeting is with.",
+        "operation": "getAll",
+        "calendar": {
+          "__rl": true,
+          "value": "c1eba8b017b9292a48395658587a9d2946edd6612aa0d1321df14d832a644662@group.calendar.google.com",
+          "mode": "list",
+          "cachedResultName": "BTB Demo Bookings"
+        },
+        "returnAll": true,
+        "timeMin": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('After', `Start of the period to list events for, as a full date and time.`, 'string') }}",
+        "timeMax": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Before', `End of the period to list events for, as a full date and time.`, 'string') }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleCalendarTool",
+      "typeVersion": 1.3,
+      "position": [
+        736,
+        160
+      ],
+      "id": "4c3b7a8d-cadf-40e2-8d12-a90f5f31ed3e",
+      "name": "list_events",
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": null,
+          "name": ""
+        }
+      }
+    }
+  ],
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "check_availability": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "create_event": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        []
+      ]
+    },
+    "list_events": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "nodeGroups": []
+}

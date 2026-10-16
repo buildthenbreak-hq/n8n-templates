@@ -1,0 +1,188 @@
+{
+  "name": "demo 3 Weekly report",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "weeks",
+              "triggerAtDay": [
+                1
+              ],
+              "triggerAtHour": 9
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        0,
+        0
+      ],
+      "id": "8ededd9c-88d5-4265-9344-229570a6f3ff",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1Phs2rpjNW7VujWny6eRmS9ROK4T8hZTotmpE0ufDYS0",
+          "mode": "list",
+          "cachedResultName": "Small Business Demo",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Phs2rpjNW7VujWny6eRmS9ROK4T8hZTotmpE0ufDYS0/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1903461138,
+          "mode": "list",
+          "cachedResultName": "Sales",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Phs2rpjNW7VujWny6eRmS9ROK4T8hZTotmpE0ufDYS0/edit#gid=1903461138"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        224,
+        0
+      ],
+      "id": "a919a92a-5b71-47a3-8585-bbb712fdca52",
+      "name": "Get row(s) in sheet",
+      "alwaysOutputData": true,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": null,
+          "name": ""
+        }
+      }
+    },
+    {
+      "parameters": {
+        "aggregate": "aggregateAllItemData",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        448,
+        0
+      ],
+      "id": "5b5351b5-80c2-4a84-ae3a-aec62d59bf56",
+      "name": "Aggregate"
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "models/gemini-3.5-flash-lite",
+          "mode": "list",
+          "cachedResultName": "models/gemini-3.5-flash-lite"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=You are writing a short weekly sales report for a small business owner. Use ONLY the data below. Give: total revenue, number of sales, top-selling item, and one sentence of observation. Plain text, under 120 words. If there is no data, say \"No sales were recorded this week\" and nothing else.\n\nSales data (JSON):\n{{ JSON.stringify($json.data) }}"
+            }
+          ]
+        },
+        "builtInTools": {},
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.googleGemini",
+      "typeVersion": 1.2,
+      "position": [
+        672,
+        0
+      ],
+      "id": "2336d90c-55d2-4a86-b73a-c90f6716cd2f",
+      "name": "Message a model",
+      "retryOnFail": true,
+      "credentials": {
+        "googlePalmApi": {
+          "id": null,
+          "name": ""
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "buildthenbreak.hq@gmail.com",
+        "subject": "Weekly sales report.",
+        "emailType": "text",
+        "message": "={{ $json.content.parts[0].text }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        1040,
+        0
+      ],
+      "id": "6c043ba0-4108-43b1-ab9f-ee078a73a20a",
+      "name": "Send a message",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": null,
+          "name": ""
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "node": "Aggregate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aggregate": {
+      "main": [
+        [
+          {
+            "node": "Message a model",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Message a model": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "nodeGroups": []
+}
