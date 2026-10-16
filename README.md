@@ -10,10 +10,10 @@ Every workflow here was built on camera, broken on purpose, and fixed. The fixes
 4. Replace the prompt, sheet or email with your own.
 
 ## Video 1: AI Lead Sorter
-- `video1-...json`: contact form, AI classifier, Google Sheets, Gmail. Needs a sheet with columns Name, Email, Message, Category, Received_at (see `video1-leads-sheet-headers.csv`).
+- `video1-contact-form-ai-classifier.json`: contact form, AI classifier, Google Sheets, Gmail. Needs a sheet with columns Name, Email, Message, Category, Received_at (see `video1-leads-sheet-headers.csv`).
 
 ## Video 2: Lead Router (from "Zapier vs Make vs n8n")
-- Google Sheets trigger, Gemini, Sheets update, If, Gmail.
+- `video2-lead-router-gemini.json`: Google Sheets trigger, Gemini, Sheets update, If, Gmail. Needs the same sheet columns as Video 1.
 
 ## Video 3: AI Agent Lead Assistant (from "What Is an AI Agent?")
 - `video3-ai-agent-lead-assistant.json`: chat trigger, AI Agent with memory, Google Sheets tool and Gmail tool.
