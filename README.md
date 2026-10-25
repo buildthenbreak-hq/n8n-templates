@@ -19,6 +19,9 @@ Every workflow here was built on camera, broken on purpose, and fixed. The fixes
 - `video3-ai-agent-lead-assistant.json`: chat trigger, AI Agent with memory, Google Sheets tool and Gmail tool.
 - Import steps: create a Google Sheet and import `video3-agent-leads.csv`; import the JSON; add credentials (chat model, Google Sheets, Gmail); pick your sheet in the Sheets tool and set your own email in the Gmail tool; open the chat and ask "How many sales leads do we have?"
 
+## Video 4: Self-Host n8n for Free on Your PC
+- No workflow file. This video is the Docker setup only. The one command and the fixes are in the video description: https://youtu.be/IEDtvkKk4ZE
+
 ## Video 5: Chat With Your PDFs (RAG)
 - `video5-chat-with-pdf-rag.json`: upload side (form, Simple Vector Store, Gemini embeddings) and chat side (AI Agent, retrieve tools). Test PDFs: `Bright_Dental_Patient_Handbook.pdf`, `Sunrise_Dental_Patient_Guide.pdf`, `Supplier_Price_Sheet.pdf` (contains a prompt-injection line on purpose).
 - Needs a Gemini key for embeddings and chat. The Simple Vector Store is in-memory; it resets on restart.
@@ -28,6 +31,9 @@ Every workflow here was built on camera, broken on purpose, and fixed. The fixes
 
 ## Video 7: AI Calendar Booking Agent
 - `video7-ai-calendar-booking-agent.json`: chat trigger, AI Agent, check_availability, create_event, list_events, with the date/time and booking rules in the system message. Needs a Google Calendar OAuth credential and a Gemini key.
+
+## Video 8: I Let AI Run My Business Inbox for 7 Days
+- No new file. The experiment runs the Video 6 workflow (`video6-ai-email-assistant.json`) on a real inbox with the sender filter removed.
 
 ## Video 9: n8n Error Handling
 - `video9-error-alerting.json`: Error Trigger, Gmail alert, Alert Log sheet as a backup when the email fails. Set it as the Error Workflow in any workflow's settings.
