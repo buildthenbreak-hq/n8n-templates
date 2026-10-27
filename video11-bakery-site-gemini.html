@@ -1,0 +1,1162 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maple Street Bakery | Artisan Breads & Pastries in Springfield, IL</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        wheat: {
+                            50: '#fdfbf7',
+                            100: '#f7f1e3',
+                            200: '#ede2c2',
+                            300: '#e1d09e',
+                            400: '#d3b977',
+                            500: '#c5a059',
+                            600: '#ab8345',
+                            700: '#8c6837',
+                            800: '#735430',
+                            900: '#5f452a',
+                        },
+                        terracotta: {
+                            500: '#c85a32',
+                            600: '#b04924',
+                            700: '#943b1a',
+                        },
+                        chocolate: {
+                            800: '#2c1e14',
+                            900: '#1d130c',
+                        }
+                    },
+                    fontFamily: {
+                        playfair: ['Playfair Display', 'serif'],
+                        inter: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        h1, h2, h3, h4, .font-heading {
+            font-family: 'Playfair Display', serif;
+        }
+    </style>
+</head>
+<body class="bg-wheat-50 text-chocolate-800 antialiased selection:bg-wheat-300 selection:text-chocolate-900">
+
+    <!-- Navigation Bar -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-wheat-50/90 backdrop-blur-md border-b border-wheat-200 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <!-- Brand Logo -->
+                <a href="#" class="flex items-center space-x-3 group">
+                    <div class="w-10 h-10 rounded-full bg-wheat-500 flex items-center justify-center text-white shadow-md group-hover:bg-terracotta-500 transition-colors">
+                        <i class="fa-solid fa-wheat-awn text-lg"></i>
+                    </div>
+                    <div>
+                        <span class="font-heading text-xl sm:text-2xl font-bold tracking-tight text-chocolate-900 block">Maple Street Bakery</span>
+                        <span class="text-xs text-wheat-700 font-medium tracking-widest uppercase block -mt-1">Springfield, IL</span>
+                    </div>
+                </a>
+
+                <!-- Desktop Navigation Links -->
+                <nav class="hidden md:flex items-center space-x-8">
+                    <a href="#about" class="text-sm font-medium text-chocolate-800 hover:text-terracotta-600 transition-colors">Our Story</a>
+                    <a href="#menu" class="text-sm font-medium text-chocolate-800 hover:text-terracotta-600 transition-colors">Menu & Prices</a>
+                    <a href="#gallery" class="text-sm font-medium text-chocolate-800 hover:text-terracotta-600 transition-colors">Gallery</a>
+                    <a href="#hours" class="text-sm font-medium text-chocolate-800 hover:text-terracotta-600 transition-colors">Hours</a>
+                    <a href="#location" class="text-sm font-medium text-chocolate-800 hover:text-terracotta-600 transition-colors">Find Us</a>
+                    <a href="#contact" class="text-sm font-medium text-chocolate-800 hover:text-terracotta-600 transition-colors">Contact</a>
+                    
+                    <!-- Cart Button -->
+                    <button id="open-cart-btn" class="relative bg-terracotta-500 hover:bg-terracotta-600 text-white px-5 py-2.5 rounded-full text-sm font-semibold shadow-sm hover:shadow transition-all flex items-center space-x-2">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                        <span>Order Online</span>
+                        <span id="cart-badge-count" class="hidden bg-white text-terracotta-600 font-bold text-xs rounded-full w-5 h-5 flex items-center justify-center ml-1 shadow-sm">0</span>
+                    </button>
+                </nav>
+
+                <!-- Mobile Menu Button & Cart Icon -->
+                <div class="md:hidden flex items-center space-x-3">
+                    <button id="mobile-cart-btn" class="relative bg-terracotta-500 text-white p-2.5 rounded-full shadow focus:outline-none">
+                        <i class="fa-solid fa-cart-shopping text-lg"></i>
+                        <span id="mobile-cart-badge-count" class="hidden absolute -top-1 -right-1 bg-chocolate-900 text-white font-bold text-xs rounded-full w-5 h-5 flex items-center justify-center border-2 border-white">0</span>
+                    </button>
+                    <button id="mobile-menu-btn" aria-label="Toggle menu" class="text-chocolate-800 hover:text-terracotta-600 p-2 focus:outline-none">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden bg-wheat-100 border-b border-wheat-200 px-4 pt-2 pb-6 space-y-3">
+            <a href="#about" class="block py-2 text-base font-medium text-chocolate-800 hover:text-terracotta-600 border-b border-wheat-200/50">Our Story</a>
+            <a href="#menu" class="block py-2 text-base font-medium text-chocolate-800 hover:text-terracotta-600 border-b border-wheat-200/50">Menu & Prices</a>
+            <a href="#gallery" class="block py-2 text-base font-medium text-chocolate-800 hover:text-terracotta-600 border-b border-wheat-200/50">Gallery</a>
+            <a href="#hours" class="block py-2 text-base font-medium text-chocolate-800 hover:text-terracotta-600 border-b border-wheat-200/50">Hours</a>
+            <a href="#location" class="block py-2 text-base font-medium text-chocolate-800 hover:text-terracotta-600 border-b border-wheat-200/50">Find Us</a>
+            <a href="#contact" class="block py-2 text-base font-medium text-chocolate-800 hover:text-terracotta-600 border-b border-wheat-200/50">Contact Us</a>
+            <button id="mobile-menu-order-btn" class="w-full text-center mt-4 bg-terracotta-500 text-white py-3 rounded-xl font-semibold shadow flex items-center justify-center space-x-2">
+                <i class="fa-solid fa-bag-shopping"></i>
+                <span>Open Cart & Checkout</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative pt-32 pb-20 md:pt-44 md:pb-32 overflow-hidden bg-gradient-to-b from-wheat-100 to-wheat-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div class="space-y-6 text-center md:text-left">
+                    <div class="inline-flex items-center space-x-2 bg-wheat-200/70 text-wheat-800 px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wide uppercase">
+                        <i class="fa-solid fa-fire-burner text-terracotta-500"></i>
+                        <span>Freshly Baked Every Morning</span>
+                    </div>
+                    <h1 class="font-heading text-4xl sm:text-5xl lg:text-6xl font-bold text-chocolate-900 leading-tight">
+                        Artisan Breads & Pastries Baked with Love
+                    </h1>
+                    <p class="text-base sm:text-lg text-wheat-800 max-w-xl mx-auto md:mx-0">
+                        Welcome to Maple Street Bakery. Experience the comforting aroma of slow-fermented sourdough, flaky golden croissants, and indulgent morning pastries right here in Springfield.
+                    </p>
+                    <div class="flex flex-col sm:flex-row items-center justify-center md:justify-start space-y-3 sm:space-y-0 sm:space-x-4 pt-2">
+                        <a href="#menu" class="w-full sm:w-auto bg-terracotta-500 hover:bg-terracotta-600 text-white font-semibold px-8 py-3.5 rounded-full shadow-lg hover:shadow-xl transition-all text-center flex items-center justify-center space-x-2">
+                            <i class="fa-solid fa-basket-shopping"></i>
+                            <span>Order Online</span>
+                        </a>
+                        <a href="#menu" class="w-full sm:w-auto bg-wheat-200 hover:bg-wheat-300 text-chocolate-900 font-semibold px-8 py-3.5 rounded-full transition-all text-center">
+                            View Menu & Prices
+                        </a>
+                    </div>
+                    <div class="pt-4 flex items-center justify-center md:justify-start space-x-6 text-sm text-wheat-800">
+                        <div class="flex items-center space-x-2">
+                            <i class="fa-solid fa-location-dot text-terracotta-500"></i>
+                            <span>214 Maple Street</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <i class="fa-solid fa-clock text-terracotta-500"></i>
+                            <span>Mon–Sat 7am–3pm</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hero Graphic / Imagery -->
+                <div class="relative">
+                    <div class="relative mx-auto max-w-md md:max-w-none">
+                        <div class="absolute -inset-2 bg-gradient-to-r from-wheat-300 to-terracotta-500 rounded-3xl blur-xl opacity-30 animate-pulse"></div>
+                        <div class="relative bg-wheat-200 rounded-3xl overflow-hidden shadow-2xl border-4 border-white aspect-square flex items-center justify-center bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1509440159596-0249088772ff?q=80&w=800&auto=format&fit=crop');">
+                            <div class="absolute inset-0 bg-gradient-to-t from-chocolate-900/70 via-transparent to-transparent flex flex-col justify-end p-8 text-white">
+                                <span class="text-xs uppercase tracking-widest text-wheat-300 font-semibold">Handcrafted Daily</span>
+                                <span class="font-heading text-2xl font-bold">Traditional Methods, Local Ingredients</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About / Story Section -->
+    <section id="about" class="py-20 bg-white">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto space-y-4">
+                <span class="text-xs font-bold uppercase tracking-widest text-terracotta-600">Our Craft & Story</span>
+                <h2 class="font-heading text-3xl sm:text-4xl font-bold text-chocolate-900">Rooted in Passion and Tradition</h2>
+                <div class="w-16 h-1 bg-wheat-400 mx-auto rounded-full"></div>
+                <p class="text-wheat-800 text-base sm:text-lg leading-relaxed pt-2">
+                    At Maple Street Bakery, we believe that great baking cannot be rushed. Founded on the principles of patience, high-grade local ingredients, and time-honored techniques, every loaf of sourdough, flaky croissant, and cinnamon roll is shaped by hand every single morning. Step inside, smell the warmth, and treat yourself to something truly authentic.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16">
+                <div class="bg-wheat-50 p-8 rounded-2xl border border-wheat-200 text-center space-y-4 hover:shadow-md transition-shadow">
+                    <div class="w-14 h-14 bg-wheat-200 text-terracotta-600 rounded-2xl flex items-center justify-center mx-auto text-2xl shadow-inner">
+                        <i class="fa-solid fa-wheat-awn"></i>
+                    </div>
+                    <h3 class="font-heading text-xl font-bold text-chocolate-900">100% Sourdough</h3>
+                    <p class="text-sm text-wheat-800">Our signature bread relies on natural wild fermentation for superior flavor, texture, and digestibility.</p>
+                </div>
+                
+                <div class="bg-wheat-50 p-8 rounded-2xl border border-wheat-200 text-center space-y-4 hover:shadow-md transition-shadow">
+                    <div class="w-14 h-14 bg-wheat-200 text-terracotta-600 rounded-2xl flex items-center justify-center mx-auto text-2xl shadow-inner">
+                        <i class="fa-solid fa-sun"></i>
+                    </div>
+                    <h3 class="font-heading text-xl font-bold text-chocolate-900">Baked Fresh Daily</h3>
+                    <p class="text-sm text-wheat-800">Ovens fire up well before dawn so our shelves are stocked with warm pastries right when we open at 7 AM.</p>
+                </div>
+
+                <div class="bg-wheat-50 p-8 rounded-2xl border border-wheat-200 text-center space-y-4 hover:shadow-md transition-shadow">
+                    <div class="w-14 h-14 bg-wheat-200 text-terracotta-600 rounded-2xl flex items-center justify-center mx-auto text-2xl shadow-inner">
+                        <i class="fa-solid fa-cake-candles"></i>
+                    </div>
+                    <h3 class="font-heading text-xl font-bold text-chocolate-900">Custom Celebrations</h3>
+                    <p class="text-sm text-wheat-800">From birthdays to anniversaries, our custom birthday cakes make every special milestone unforgettable.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu & Prices Section -->
+    <section id="menu" class="py-20 bg-wheat-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto space-y-4 mb-16">
+                <span class="text-xs font-bold uppercase tracking-widest text-terracotta-600">Fresh from the Oven</span>
+                <h2 class="font-heading text-3xl sm:text-4xl font-bold text-chocolate-900">Our Daily Menu & Prices</h2>
+                <div class="w-16 h-1 bg-wheat-400 mx-auto rounded-full"></div>
+                <p class="text-wheat-800 text-base">
+                    All items are baked fresh every morning in limited batches. Come early for the best selection!
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Sourdough Bread -->
+                <div class="bg-white rounded-2xl p-6 shadow-sm hover:shadow-md transition-all border border-wheat-200 flex flex-col justify-between group">
+                    <div>
+                        <div class="h-48 rounded-xl bg-wheat-200 mb-6 overflow-hidden relative">
+                            <img src="https://images.unsplash.com/photo-1585478259715-876acc5be8eb?q=80&w=600&auto=format&fit=crop" alt="Sourdough Bread" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                            <span class="absolute top-3 right-3 bg-chocolate-900/80 backdrop-blur-sm text-white text-xs px-3 py-1 rounded-full font-semibold">Signature</span>
+                        </div>
+                        <h3 class="font-heading text-2xl font-bold text-chocolate-900 mb-2">Sourdough Bread</h3>
+                        <p class="text-sm text-wheat-800 mb-4">Crusty on the outside, soft and airy on the inside. Naturally fermented for 36 hours.</p>
+                    </div>
+                    <div class="flex items-center justify-between pt-4 border-t border-wheat-100">
+                        <span class="text-2xl font-bold text-terracotta-600">$8.00</span>
+                        <button onclick="addToCart('sourdough', 'Sourdough Bread', 8.00)" class="text-xs font-semibold uppercase tracking-wider bg-terracotta-500 hover:bg-terracotta-600 text-white px-4 py-2.5 rounded-xl transition-all flex items-center space-x-1.5 shadow-sm">
+                            <i class="fa-solid fa-plus"></i>
+                            <span>Add to Order</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Croissants -->
+                <div class="bg-white rounded-2xl p-6 shadow-sm hover:shadow-md transition-all border border-wheat-200 flex flex-col justify-between group">
+                    <div>
+                        <div class="h-48 rounded-xl bg-wheat-200 mb-6 overflow-hidden relative">
+                            <img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?q=80&w=600&auto=format&fit=crop" alt="Croissants" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                            <span class="absolute top-3 right-3 bg-chocolate-900/80 backdrop-blur-sm text-white text-xs px-3 py-1 rounded-full font-semibold">Flaky & Buttery</span>
+                        </div>
+                        <h3 class="font-heading text-2xl font-bold text-chocolate-900 mb-2">Croissants</h3>
+                        <p class="text-sm text-wheat-800 mb-4">Rolled with premium European butter for hundreds of golden, shattering layers.</p>
+                    </div>
+                    <div class="flex items-center justify-between pt-4 border-t border-wheat-100">
+                        <span class="text-2xl font-bold text-terracotta-600">$3.50</span>
+                        <button onclick="addToCart('croissant', 'Croissant', 3.50)" class="text-xs font-semibold uppercase tracking-wider bg-terracotta-500 hover:bg-terracotta-600 text-white px-4 py-2.5 rounded-xl transition-all flex items-center space-x-1.5 shadow-sm">
+                            <i class="fa-solid fa-plus"></i>
+                            <span>Add to Order</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Cinnamon Rolls -->
+                <div class="bg-white rounded-2xl p-6 shadow-sm hover:shadow-md transition-all border border-wheat-200 flex flex-col justify-between group">
+                    <div>
+                        <div class="h-48 rounded-xl bg-wheat-200 mb-6 overflow-hidden relative">
+                            <img src="https://images.unsplash.com/photo-1509365465985-25d11c17e812?q=80&w=600&auto=format&fit=crop" alt="Cinnamon Rolls" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                            <span class="absolute top-3 right-3 bg-terracotta-500 text-white text-xs px-3 py-1 rounded-full font-semibold">Fan Favorite</span>
+                        </div>
+                        <h3 class="font-heading text-2xl font-bold text-chocolate-900 mb-2">Cinnamon Rolls</h3>
+                        <p class="text-sm text-wheat-800 mb-4">Freshly baked every morning with sweet cinnamon swirl and rich cream cheese icing.</p>
+                    </div>
+                    <div class="flex items-center justify-between pt-4 border-t border-wheat-100">
+                        <span class="text-2xl font-bold text-terracotta-600">$4.00</span>
+                        <button onclick="addToCart('cinnamon-roll', 'Cinnamon Roll', 4.00)" class="text-xs font-semibold uppercase tracking-wider bg-terracotta-500 hover:bg-terracotta-600 text-white px-4 py-2.5 rounded-xl transition-all flex items-center space-x-1.5 shadow-sm">
+                            <i class="fa-solid fa-plus"></i>
+                            <span>Add to Order</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Custom Birthday Cakes -->
+                <div class="bg-white rounded-2xl p-6 shadow-sm hover:shadow-md transition-all border border-wheat-200 flex flex-col justify-between group">
+                    <div>
+                        <div class="h-48 rounded-xl bg-wheat-200 mb-6 overflow-hidden relative">
+                            <img src="https://images.unsplash.com/photo-1535141192574-5d4897c13136?q=80&w=600&auto=format&fit=crop" alt="Custom Birthday Cakes" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+                            <span class="absolute top-3 right-3 bg-chocolate-900/80 backdrop-blur-sm text-white text-xs px-3 py-1 rounded-full font-semibold">Custom Order</span>
+                        </div>
+                        <h3 class="font-heading text-2xl font-bold text-chocolate-900 mb-2">Custom Birthday Cakes</h3>
+                        <p class="text-sm text-wheat-800 mb-4">Tailored flavors & decorations for your special day. <strong class="text-chocolate-900 block mt-1">Order 48 hours ahead.</strong></p>
+                    </div>
+                    <div class="flex items-center justify-between pt-4 border-t border-wheat-100">
+                        <span class="text-2xl font-bold text-terracotta-600">From $45</span>
+                        <button onclick="addToCart('birthday-cake', 'Custom Birthday Cake', 45.00)" class="text-xs font-semibold uppercase tracking-wider bg-terracotta-500 hover:bg-terracotta-600 text-white px-4 py-2.5 rounded-xl transition-all flex items-center space-x-1.5 shadow-sm">
+                            <i class="fa-solid fa-plus"></i>
+                            <span>Add to Order</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Photo Gallery Section -->
+    <section id="gallery" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto space-y-4 mb-16">
+                <span class="text-xs font-bold uppercase tracking-widest text-terracotta-600">A Feast For The Eyes</span>
+                <h2 class="font-heading text-3xl sm:text-4xl font-bold text-chocolate-900">Bakery Photo Gallery</h2>
+                <div class="w-16 h-1 bg-wheat-400 mx-auto rounded-full"></div>
+                <p class="text-wheat-800 text-base">
+                    Take a sneak peek at our fresh daily creations right out of the oven.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Gallery Card 1 -->
+                <div class="group relative bg-wheat-100 rounded-2xl overflow-hidden shadow-md border border-wheat-200">
+                    <div class="h-80 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?q=80&w=800&auto=format&fit=crop" 
+                             alt="Artisan Sourdough Loaves" 
+                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 ease-out">
+                    </div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-chocolate-900/80 via-chocolate-900/20 to-transparent opacity-90 sm:opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 text-white">
+                        <span class="text-xs uppercase tracking-widest text-wheat-300 font-semibold mb-1">Golden Crusted</span>
+                        <h3 class="font-heading text-2xl font-bold">Artisan Sourdough Loaves</h3>
+                        <p class="text-xs text-wheat-200 mt-2">Baked daily using natural wild sourdough cultures.</p>
+                    </div>
+                </div>
+
+                <!-- Gallery Card 2 -->
+                <div class="group relative bg-wheat-100 rounded-2xl overflow-hidden shadow-md border border-wheat-200">
+                    <div class="h-80 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?q=80&w=800&auto=format&fit=crop" 
+                             alt="Freshly Baked Butter Croissants" 
+                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 ease-out">
+                    </div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-chocolate-900/80 via-chocolate-900/20 to-transparent opacity-90 sm:opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 text-white">
+                        <span class="text-xs uppercase tracking-widest text-wheat-300 font-semibold mb-1">Flaky Layers</span>
+                        <h3 class="font-heading text-2xl font-bold">French Butter Croissants</h3>
+                        <p class="text-xs text-wheat-200 mt-2">Crisp on the outside, light and buttery within.</p>
+                    </div>
+                </div>
+
+                <!-- Gallery Card 3 -->
+                <div class="group relative bg-wheat-100 rounded-2xl overflow-hidden shadow-md border border-wheat-200">
+                    <div class="h-80 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1535141192574-5d4897c13136?q=80&w=800&auto=format&fit=crop" 
+                             alt="Handcrafted Birthday Cake" 
+                             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 ease-out">
+                    </div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-chocolate-900/80 via-chocolate-900/20 to-transparent opacity-90 sm:opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6 text-white">
+                        <span class="text-xs uppercase tracking-widest text-wheat-300 font-semibold mb-1">Celebrations</span>
+                        <h3 class="font-heading text-2xl font-bold">Custom Birthday Cakes</h3>
+                        <p class="text-xs text-wheat-200 mt-2">Hand-decorated cakes tailored for your special moments.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Opening Hours & Schedule Section -->
+    <section id="hours" class="py-20 bg-wheat-100">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-white rounded-3xl p-8 sm:p-12 border border-wheat-200 shadow-lg relative overflow-hidden">
+                <div class="absolute top-0 right-0 -mt-8 -mr-8 w-40 h-40 bg-wheat-200/50 rounded-full blur-2xl pointer-events-none"></div>
+                
+                <div class="text-center max-w-xl mx-auto space-y-3 mb-10">
+                    <span class="text-xs font-bold uppercase tracking-widest text-terracotta-600">Plan Your Visit</span>
+                    <h2 class="font-heading text-3xl sm:text-4xl font-bold text-chocolate-900">Opening Hours</h2>
+                    <p class="text-sm text-wheat-800">We bake fresh from Monday through Saturday. Stop by early for warm bread and pastries!</p>
+                </div>
+
+                <div class="space-y-3 max-w-lg mx-auto">
+                    <div class="flex items-center justify-between py-3.5 px-6 rounded-xl bg-wheat-50 border border-wheat-200">
+                        <span class="font-medium text-chocolate-900 flex items-center space-x-3">
+                            <span class="w-3 h-3 rounded-full bg-emerald-500 inline-block"></span>
+                            <span>Monday – Saturday</span>
+                        </span>
+                        <span class="font-bold text-terracotta-600">7:00 AM – 3:00 PM</span>
+                    </div>
+
+                    <div class="flex items-center justify-between py-3.5 px-6 rounded-xl bg-wheat-100/60 border border-wheat-200 text-wheat-700">
+                        <span class="font-medium flex items-center space-x-3">
+                            <span class="w-3 h-3 rounded-full bg-rose-400 inline-block"></span>
+                            <span>Sunday</span>
+                        </span>
+                        <span class="font-semibold uppercase tracking-wider text-xs bg-wheat-200 px-3 py-1 rounded-full text-chocolate-900">Closed</span>
+                    </div>
+                </div>
+
+                <div class="mt-8 text-center text-xs text-wheat-800">
+                    <i class="fa-solid fa-circle-info text-terracotta-500 mr-1"></i> Custom birthday cake orders require at least 48 hours notice prior to pickup.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Location & Directions Section -->
+    <section id="location" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto space-y-4 mb-16">
+                <span class="text-xs font-bold uppercase tracking-widest text-terracotta-600">Find Us</span>
+                <h2 class="font-heading text-3xl sm:text-4xl font-bold text-chocolate-900">Visit Our Bakery</h2>
+                <div class="w-16 h-1 bg-wheat-400 mx-auto rounded-full"></div>
+                <p class="text-wheat-800 text-base">
+                    Located right in the heart of Springfield. Drop by to pick up your daily loaf or pre-ordered treats!
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Contact Details Cards -->
+                <div class="lg:col-span-1 space-y-6 flex flex-col justify-between">
+                    <div class="bg-wheat-50 p-8 rounded-2xl border border-wheat-200 shadow-sm space-y-6">
+                        <h3 class="font-heading text-2xl font-bold text-chocolate-900 border-b border-wheat-200 pb-4">Maple Street Bakery</h3>
+                        
+                        <div class="flex items-start space-x-4">
+                            <div class="w-10 h-10 rounded-xl bg-wheat-200 text-terracotta-600 flex items-center justify-center shrink-0 mt-1">
+                                <i class="fa-solid fa-location-dot"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-xs font-bold uppercase tracking-wider text-wheat-700">Address</h4>
+                                <p class="text-chocolate-900 font-medium">214 Maple Street<br>Springfield, IL 62701</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start space-x-4">
+                            <div class="w-10 h-10 rounded-xl bg-wheat-200 text-terracotta-600 flex items-center justify-center shrink-0 mt-1">
+                                <i class="fa-solid fa-phone"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-xs font-bold uppercase tracking-wider text-wheat-700">Phone</h4>
+                                <a href="tel:2175550148" class="text-chocolate-900 font-medium hover:text-terracotta-600 transition-colors">(217) 555-0148</a>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start space-x-4">
+                            <div class="w-10 h-10 rounded-xl bg-wheat-200 text-terracotta-600 flex items-center justify-center shrink-0 mt-1">
+                                <i class="fa-solid fa-envelope"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-xs font-bold uppercase tracking-wider text-wheat-700">Email</h4>
+                                <a href="mailto:hello@maplestreetbakery.com" class="text-chocolate-900 font-medium hover:text-terracotta-600 transition-colors">hello@maplestreetbakery.com</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Embedded Map / Directions Box -->
+                <div class="lg:col-span-2 bg-wheat-50 rounded-2xl border border-wheat-200 shadow-sm overflow-hidden flex flex-col">
+                    <div class="w-full h-96 bg-wheat-200 relative">
+                        <iframe 
+                            title="Maple Street Bakery Location Map"
+                            class="w-full h-full border-0"
+                            loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3058.4601243765176!2d-89.6501!3d39.7817!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88cd104277123456%3A0x123456789abcdef!2s214%20Maple%20St%2C%20Springfield%2C%20IL%2062701!5e0!3m2!1sen!2sus!4v1650000000000!5m2!1sen!2sus">
+                        </iframe>
+                    </div>
+                    <div class="p-6 bg-wheat-100 border-t border-wheat-200 flex flex-col sm:flex-row items-center justify-between gap-4">
+                        <div class="text-sm text-wheat-800 text-center sm:text-left">
+                            <i class="fa-solid fa-car text-terracotta-500 mr-2"></i> Free street parking available right outside our front door.
+                        </div>
+                        <a href="https://maps.google.com/?q=214+Maple+Street,+Springfield,+IL+62701" target="_blank" rel="noopener noreferrer" class="bg-terracotta-500 hover:bg-terracotta-600 text-white font-semibold px-6 py-2.5 rounded-xl text-sm transition-all shadow-sm">
+                            Get Directions <i class="fa-solid fa-arrow-up-right-from-square ml-1.5 text-xs"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact & Order Inquiry Section -->
+    <section id="contact" class="py-20 bg-wheat-100">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-2xl mx-auto space-y-4 mb-16">
+                <span class="text-xs font-bold uppercase tracking-widest text-terracotta-600">Get in Touch</span>
+                <h2 class="font-heading text-3xl sm:text-4xl font-bold text-chocolate-900">Contact Us or Place an Order</h2>
+                <div class="w-16 h-1 bg-wheat-400 mx-auto rounded-full"></div>
+                <p class="text-wheat-800 text-base">
+                    Have a question or want to reserve bread, pastries, or a custom birthday cake? Fill out the form below and we’ll get back to you promptly!
+                </p>
+            </div>
+
+            <div class="bg-white rounded-3xl p-8 sm:p-12 border border-wheat-200 shadow-lg relative">
+                <!-- Status Feedback Box -->
+                <div id="form-message" class="hidden mb-6 p-4 rounded-xl text-center font-medium text-sm"></div>
+
+                <form id="order-form" class="space-y-6">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <!-- Name -->
+                        <div class="space-y-2">
+                            <label for="name" class="block text-xs font-bold uppercase tracking-wider text-chocolate-900">Your Name <span class="text-terracotta-500">*</span></label>
+                            <input type="text" id="name" name="name" required class="w-full bg-wheat-50 border border-wheat-300 rounded-xl px-4 py-3 text-chocolate-900 focus:outline-none focus:ring-2 focus:ring-terracotta-500 focus:border-transparent transition-all" placeholder="Jane Doe">
+                        </div>
+
+                        <!-- Email -->
+                        <div class="space-y-2">
+                            <label for="email" class="block text-xs font-bold uppercase tracking-wider text-chocolate-900">Your Email <span class="text-terracotta-500">*</span></label>
+                            <input type="email" id="email" name="email" required class="w-full bg-wheat-50 border border-wheat-300 rounded-xl px-4 py-3 text-chocolate-900 focus:outline-none focus:ring-2 focus:ring-terracotta-500 focus:border-transparent transition-all" placeholder="jane@example.com">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <!-- Item of Interest / Order Type -->
+                        <div class="space-y-2">
+                            <label for="item" class="block text-xs font-bold uppercase tracking-wider text-chocolate-900">Item / Inquiry Type</label>
+                            <select id="item" name="item" class="w-full bg-wheat-50 border border-wheat-300 rounded-xl px-4 py-3 text-chocolate-900 focus:outline-none focus:ring-2 focus:ring-terracotta-500 focus:border-transparent transition-all">
+                                <option value="General Inquiry">General Question / Feedback</option>
+                                <option value="Sourdough Bread ($8)">Sourdough Bread ($8)</option>
+                                <option value="Croissants ($3.50)">Croissants ($3.50)</option>
+                                <option value="Cinnamon Rolls ($4)">Cinnamon Rolls ($4)</option>
+                                <option value="Custom Birthday Cake (From $45)">Custom Birthday Cake (From $45)</option>
+                            </select>
+                        </div>
+
+                        <!-- Pickup Date (Optional) -->
+                        <div class="space-y-2">
+                            <label for="pickup-date" class="block text-xs font-bold uppercase tracking-wider text-chocolate-900">Preferred Pickup Date (Mon–Sat)</label>
+                            <input type="date" id="pickup-date" name="pickup-date" class="w-full bg-wheat-50 border border-wheat-300 rounded-xl px-4 py-3 text-chocolate-900 focus:outline-none focus:ring-2 focus:ring-terracotta-500 focus:border-transparent transition-all">
+                        </div>
+                    </div>
+
+                    <!-- Message -->
+                    <div class="space-y-2">
+                        <label for="message" class="block text-xs font-bold uppercase tracking-wider text-chocolate-900">Message / Order Details <span class="text-terracotta-500">*</span></label>
+                        <textarea id="message" name="message" rows="4" required class="w-full bg-wheat-50 border border-wheat-300 rounded-xl px-4 py-3 text-chocolate-900 focus:outline-none focus:ring-2 focus:ring-terracotta-500 focus:border-transparent transition-all" placeholder="Let us know quantities, special cake decoration notes, or any questions..."></textarea>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="w-full bg-terracotta-500 hover:bg-terracotta-600 text-white font-semibold py-4 rounded-xl shadow-md hover:shadow-lg transition-all text-base">
+                        <i class="fa-solid fa-paper-plane mr-2"></i> Send Message & Order Inquiry
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer class="bg-chocolate-900 text-wheat-200 py-16 border-t border-chocolate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+                <!-- Col 1: Brand -->
+                <div class="space-y-4 md:col-span-1">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-9 h-9 rounded-full bg-wheat-500 flex items-center justify-center text-white">
+                            <i class="fa-solid fa-wheat-awn"></i>
+                        </div>
+                        <span class="font-heading text-xl font-bold text-white tracking-tight">Maple Street Bakery</span>
+                    </div>
+                    <p class="text-sm text-wheat-300">
+                        Springfield's neighborhood artisan bakery crafting wholesome sourdough and decadent morning pastries with joy.
+                    </p>
+                </div>
+
+                <!-- Col 2: Quick Links -->
+                <div class="space-y-3">
+                    <h4 class="font-heading text-lg font-bold text-white">Quick Links</h4>
+                    <ul class="space-y-2 text-sm text-wheat-300">
+                        <li><a href="#about" class="hover:text-wheat-100 transition-colors">Our Story</a></li>
+                        <li><a href="#menu" class="hover:text-wheat-100 transition-colors">Menu & Prices</a></li>
+                        <li><a href="#gallery" class="hover:text-wheat-100 transition-colors">Photo Gallery</a></li>
+                        <li><a href="#hours" class="hover:text-wheat-100 transition-colors">Opening Hours</a></li>
+                        <li><a href="#location" class="hover:text-wheat-100 transition-colors">Directions & Map</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 3: Hours Summary -->
+                <div class="space-y-3">
+                    <h4 class="font-heading text-lg font-bold text-white">Hours</h4>
+                    <p class="text-sm text-wheat-300">
+                        Monday – Saturday<br>
+                        <strong class="text-white font-semibold">7:00 AM – 3:00 PM</strong><br>
+                        <span class="text-xs text-wheat-400 block mt-1">Closed Sunday</span>
+                    </p>
+                </div>
+
+                <!-- Col 4: Contact & Social -->
+                <div class="space-y-3">
+                    <h4 class="font-heading text-lg font-bold text-white">Connect With Us</h4>
+                    <p class="text-sm text-wheat-300">
+                        214 Maple Street, Springfield, IL<br>
+                        Phone: (217) 555-0148<br>
+                        Email: hello@maplestreetbakery.com
+                    </p>
+                    <div class="flex space-x-3 pt-2">
+                        <a href="#" aria-label="Facebook" class="w-9 h-9 rounded-full bg-chocolate-800 hover:bg-terracotta-500 text-white flex items-center justify-center transition-colors">
+                            <i class="fa-brands fa-facebook-f text-sm"></i>
+                        </a>
+                        <a href="#" aria-label="Instagram" class="w-9 h-9 rounded-full bg-chocolate-800 hover:bg-terracotta-500 text-white flex items-center justify-center transition-colors">
+                            <i class="fa-brands fa-instagram text-sm"></i>
+                        </a>
+                        <a href="#" aria-label="Yelp" class="w-9 h-9 rounded-full bg-chocolate-800 hover:bg-terracotta-500 text-white flex items-center justify-center transition-colors">
+                            <i class="fa-brands fa-yelp text-sm"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pt-8 border-t border-chocolate-800 flex flex-col sm:flex-row items-center justify-between text-xs text-wheat-400">
+                <p>&copy; 2026 Maple Street Bakery. All rights reserved.</p>
+                <p class="mt-2 sm:mt-0">Artisanal Bakery in Springfield, Illinois</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript Interactive Functionality -->
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu when clicking a link
+        const mobileLinks = mobileMenu.querySelectorAll('a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Navbar shadow on scroll
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 20) {
+                navbar.classList.add('shadow-md');
+            } else {
+                navbar.classList.remove('shadow-md');
+            }
+        });
+
+        // Form submission handling
+        const orderForm = document.getElementById('order-form');
+        const formMessage = document.getElementById('form-message');
+
+        orderForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const item = document.getElementById('item').value;
+            const pickupDate = document.getElementById('pickup-date').value;
+            const message = document.getElementById('message').value.trim();
+
+            // Construct mailto fallback and success message
+            const subject = encodeURIComponent(`Bakery Inquiry / Order from ${name} - ${item}`);
+            const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\nSelected Item: ${item}\nPickup Date: ${pickupDate || 'Not specified'}\n\nMessage:\n${message}`);
+            
+            const mailtoUrl = `mailto:hello@maplestreetbakery.com?subject=${subject}&body=${body}`;
+
+            // Show success alert/box in UI
+            formMessage.classList.remove('hidden', 'bg-rose-100', 'text-rose-800');
+            formMessage.classList.add('bg-emerald-100', 'text-emerald-800', 'border', 'border-emerald-200');
+            formMessage.innerHTML = `
+                <i class="fa-solid fa-circle-check text-emerald-600 mr-2"></i>
+                Thank you, <strong>${name}</strong>! Your inquiry for <strong>${item}</strong> has been prepared. 
+                <br><span class="text-xs mt-1 block">Your email client should open automatically. If not, you can reach us directly at <a href="mailto:hello@maplestreetbakery.com" class="underline font-semibold">hello@maplestreetbakery.com</a> or call (217) 555-0148.</span>
+            `;
+
+            // Trigger mailto link
+            window.location.href = mailtoUrl;
+
+            // Reset form
+            orderForm.reset();
+            
+            // Scroll message into view
+            formMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        });
+    </script>
+</body>
+</html>
+    <!-- Shopping Cart Drawer Overlay -->
+    <div id="cart-drawer-backdrop" class="fixed inset-0 bg-chocolate-900/60 backdrop-blur-xs z-50 hidden transition-opacity">
+        <div id="cart-drawer" class="fixed inset-y-0 right-0 max-w-md w-full bg-white shadow-2xl flex flex-col justify-between z-50 transform translate-x-full transition-transform duration-300 ease-in-out">
+            <!-- Drawer Header -->
+            <div class="p-6 bg-wheat-100 border-b border-wheat-200 flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <div class="w-9 h-9 rounded-full bg-terracotta-500 text-white flex items-center justify-center">
+                        <i class="fa-solid fa-bag-shopping"></i>
+                    </div>
+                    <h3 class="font-heading text-xl font-bold text-chocolate-900">Your Fresh Bakery Order</h3>
+                </div>
+                <button id="close-cart-btn" class="text-chocolate-800 hover:text-terracotta-600 p-2 text-xl focus:outline-none">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Drawer Cart Items Area -->
+            <div id="cart-items-container" class="p-6 overflow-y-auto flex-1 space-y-4">
+                <!-- Cart items dynamically rendered via JS -->
+            </div>
+
+            <!-- Drawer Footer Summary -->
+            <div class="p-6 bg-wheat-50 border-t border-wheat-200 space-y-4">
+                <div class="space-y-1.5 text-sm">
+                    <div class="flex justify-between text-wheat-800">
+                        <span>Subtotal</span>
+                        <span id="cart-subtotal">$0.00</span>
+                    </div>
+                    <div class="flex justify-between text-wheat-800">
+                        <span>Estimated Sales Tax (8.25%)</span>
+                        <span id="cart-tax">$0.00</span>
+                    </div>
+                    <div class="flex justify-between text-lg font-bold text-chocolate-900 pt-2 border-t border-wheat-200">
+                        <span>Total Due</span>
+                        <span id="cart-total" class="text-terracotta-600">$0.00</span>
+                    </div>
+                </div>
+
+                <button id="proceed-checkout-btn" class="w-full bg-terracotta-500 hover:bg-terracotta-600 text-white font-semibold py-3.5 rounded-xl shadow-md transition-all text-center flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed">
+                    <span>Proceed to Card Checkout</span>
+                    <i class="fa-solid fa-arrow-right text-xs"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Checkout Modal Window -->
+    <div id="checkout-modal" class="fixed inset-0 bg-chocolate-900/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-white rounded-3xl max-w-xl w-full border border-wheat-200 shadow-2xl overflow-hidden my-8">
+            <!-- Modal Header -->
+            <div class="p-6 bg-wheat-100 border-b border-wheat-200 flex items-center justify-between">
+                <div>
+                    <h3 class="font-heading text-2xl font-bold text-chocolate-900">Card Payment & Pickup</h3>
+                    <p class="text-xs text-wheat-700">Maple Street Bakery • 214 Maple St, Springfield, IL</p>
+                </div>
+                <button id="close-checkout-btn" class="text-chocolate-800 hover:text-terracotta-600 p-2 text-xl focus:outline-none">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <form id="checkout-form" class="p-6 sm:p-8 space-y-6">
+                <!-- Order Total Summary Callout -->
+                <div class="bg-wheat-50 p-4 rounded-2xl border border-wheat-200 flex items-center justify-between">
+                    <div>
+                        <span class="text-xs uppercase font-bold text-wheat-700 tracking-wider">Amount to Pay</span>
+                        <div id="checkout-modal-total" class="font-heading text-2xl font-bold text-terracotta-600">$0.00</div>
+                    </div>
+                    <div class="text-right text-xs text-wheat-800">
+                        <span id="checkout-modal-count">0 items</span>
+                    </div>
+                </div>
+
+                <!-- Customer Details -->
+                <div class="space-y-4">
+                    <h4 class="font-heading text-lg font-bold text-chocolate-900 border-b border-wheat-200 pb-2">1. Contact & Pickup Time</h4>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label for="checkout-name" class="block text-xs font-bold uppercase text-chocolate-900 mb-1">Full Name *</label>
+                            <input type="text" id="checkout-name" required placeholder="Alex Morgan" class="w-full bg-wheat-50 border border-wheat-300 rounded-xl px-3.5 py-2.5 text-sm text-chocolate-900 focus:outline-none focus:ring-2 focus:ring-terracotta-500">
+                        </div>
+                        <div>
+                            <label for="checkout-phone" class="block text-xs font-bold uppercase text-chocolate-900 mb-1">Phone Number *</label>
+                            <input type="tel" id="checkout-phone" required placeholder="(217) 555-0199" class="w-full bg-wheat-50 border border-wheat-300 rounded-xl px-3.5 py-2.5 text-sm text-chocolate-900 focus:outline-none focus:ring-2 focus:ring-terracotta-500">
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label for="checkout-date" class="block text-xs font-bold uppercase text-chocolate-900 mb-1">Pickup Date *</label>
+                            <input type="date" id="checkout-date" required class="w-full bg-wheat-50 border border-wheat-300 rounded-xl px-3.5 py-2.5 text-sm text-chocolate-900 focus:outline-none focus:ring-2 focus:ring-terracotta-500">
+                        </div>
+                        <div>
+                            <label for="checkout-time" class="block text-xs font-bold uppercase text-chocolate-900 mb-1">Pickup Time *</label>
+                            <select id="checkout-time" required class="w-full bg-wheat-50 border border-wheat-300 rounded-xl px-3.5 py-2.5 text-sm text-chocolate-900 focus:outline-none focus:ring-2 focus:ring-terracotta-500">
+                                <option value="07:30 AM">07:30 AM</option>
+                                <option value="08:30 AM">08:30 AM</option>
+                                <option value="09:30 AM">09:30 AM</option>
+                                <option value="10:30 AM">10:30 AM</option>
+                                <option value="11:30 AM">11:30 AM</option>
+                                <option value="01:00 PM">01:00 PM</option>
+                                <option value="02:30 PM">02:30 PM</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div id="cake-notice" class="hidden text-xs bg-amber-50 border border-amber-200 text-amber-800 p-3 rounded-xl">
+                        <i class="fa-solid fa-circle-info mr-1"></i> Custom Birthday Cakes require at least 48 hours notice for handcrafted preparation.
+                    </div>
+                </div>
+
+                <!-- Card Details -->
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between border-b border-wheat-200 pb-2">
+                        <h4 class="font-heading text-lg font-bold text-chocolate-900">2. Payment Method</h4>
+                        <div class="flex space-x-2 text-xl text-wheat-700">
+                            <i class="fa-brands fa-cc-visa"></i>
+                            <i class="fa-brands fa-cc-mastercard"></i>
+                            <i class="fa-brands fa-cc-amex"></i>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="card-holder" class="block text-xs font-bold uppercase text-chocolate-900 mb-1">Cardholder Name *</label>
+                        <input type="text" id="card-holder" required placeholder="Alex Morgan" class="w-full bg-wheat-50 border border-wheat-300 rounded-xl px-3.5 py-2.5 text-sm text-chocolate-900 focus:outline-none focus:ring-2 focus:ring-terracotta-500">
+                    </div>
+
+                    <div>
+                        <label for="card-number" class="block text-xs font-bold uppercase text-chocolate-900 mb-1">Card Number *</label>
+                        <div class="relative">
+                            <input type="text" id="card-number" required placeholder="4532 •••• •••• 8892" maxlength="19" class="w-full bg-wheat-50 border border-wheat-300 rounded-xl px-3.5 py-2.5 text-sm text-chocolate-900 focus:outline-none focus:ring-2 focus:ring-terracotta-500 font-mono">
+                            <i class="fa-solid fa-credit-card absolute right-3.5 top-3 text-wheat-600"></i>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label for="card-expiry" class="block text-xs font-bold uppercase text-chocolate-900 mb-1">Expiry Date *</label>
+                            <input type="text" id="card-expiry" required placeholder="MM/YY" maxlength="5" class="w-full bg-wheat-50 border border-wheat-300 rounded-xl px-3.5 py-2.5 text-sm text-chocolate-900 focus:outline-none focus:ring-2 focus:ring-terracotta-500 font-mono">
+                        </div>
+                        <div>
+                            <label for="card-cvv" class="block text-xs font-bold uppercase text-chocolate-900 mb-1">CVV Code *</label>
+                            <input type="password" id="card-cvv" required placeholder="123" maxlength="4" class="w-full bg-wheat-50 border border-wheat-300 rounded-xl px-3.5 py-2.5 text-sm text-chocolate-900 focus:outline-none focus:ring-2 focus:ring-terracotta-500 font-mono">
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" id="pay-submit-btn" class="w-full bg-terracotta-500 hover:bg-terracotta-600 text-white font-bold py-4 rounded-xl shadow-lg transition-all flex items-center justify-center space-x-2 text-base">
+                    <i class="fa-solid fa-lock"></i>
+                    <span id="pay-btn-label">Pay & Place Pickup Order</span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Order Receipt / Confirmation Modal -->
+    <div id="receipt-modal" class="fixed inset-0 bg-chocolate-900/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-lg w-full border border-wheat-200 shadow-2xl p-8 text-center space-y-6">
+            <div class="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto text-3xl shadow-inner">
+                <i class="fa-solid fa-check"></i>
+            </div>
+            
+            <div class="space-y-2">
+                <span class="text-xs font-bold uppercase tracking-widest text-emerald-600">Payment Confirmed</span>
+                <h3 class="font-heading text-3xl font-bold text-chocolate-900">Order Placed Successfully!</h3>
+                <p class="text-sm text-wheat-800">We've received your card payment and started preparing your order.</p>
+            </div>
+
+            <div class="bg-wheat-50 p-6 rounded-2xl border border-wheat-200 text-left space-y-3 text-sm">
+                <div class="flex justify-between border-b border-wheat-200 pb-2">
+                    <span class="text-wheat-700">Order Number:</span>
+                    <strong id="receipt-order-id" class="text-chocolate-900 font-mono">#MSB-8921</strong>
+                </div>
+                <div class="flex justify-between border-b border-wheat-200 pb-2">
+                    <span class="text-wheat-700">Customer:</span>
+                    <strong id="receipt-name" class="text-chocolate-900">Alex Morgan</strong>
+                </div>
+                <div class="flex justify-between border-b border-wheat-200 pb-2">
+                    <span class="text-wheat-700">Pickup Location:</span>
+                    <strong class="text-chocolate-900">214 Maple Street</strong>
+                </div>
+                <div class="flex justify-between border-b border-wheat-200 pb-2">
+                    <span class="text-wheat-700">Scheduled Pickup:</span>
+                    <strong id="receipt-pickup-time" class="text-terracotta-600">Tomorrow at 09:30 AM</strong>
+                </div>
+                <div>
+                    <span class="text-xs font-bold uppercase text-wheat-700 block mb-1">Items:</span>
+                    <div id="receipt-item-list" class="space-y-1 text-chocolate-900"></div>
+                </div>
+                <div class="pt-2 border-t border-wheat-200 flex justify-between font-bold text-base text-chocolate-900">
+                    <span>Paid Total:</span>
+                    <span id="receipt-total-paid" class="text-terracotta-600">$0.00</span>
+                </div>
+            </div>
+
+            <button id="close-receipt-btn" class="w-full bg-chocolate-900 hover:bg-chocolate-800 text-white font-semibold py-3.5 rounded-xl shadow transition-all">
+                Close & Return to Website
+            </button>
+        </div>
+    </div>
+
+    <!-- JavaScript Interactive Functionality -->
+    <script>
+        // Shopping Cart State
+        let cart = {};
+
+        const catalog = {
+            'sourdough': { name: 'Sourdough Bread', price: 8.00 },
+            'croissant': { name: 'Croissant', price: 3.50 },
+            'cinnamon-roll': { name: 'Cinnamon Roll', price: 4.00 },
+            'birthday-cake': { name: 'Custom Birthday Cake', price: 45.00 }
+        };
+
+        // DOM elements
+        const cartDrawerBackdrop = document.getElementById('cart-drawer-backdrop');
+        const cartDrawer = document.getElementById('cart-drawer');
+        const openCartBtn = document.getElementById('open-cart-btn');
+        const mobileCartBtn = document.getElementById('mobile-cart-btn');
+        const closeCartBtn = document.getElementById('close-cart-btn');
+        const mobileMenuOrderBtn = document.getElementById('mobile-menu-order-btn');
+        
+        const cartBadgeCount = document.getElementById('cart-badge-count');
+        const mobileCartBadgeCount = document.getElementById('mobile-cart-badge-count');
+        const cartItemsContainer = document.getElementById('cart-items-container');
+        const cartSubtotalEl = document.getElementById('cart-subtotal');
+        const cartTaxEl = document.getElementById('cart-tax');
+        const cartTotalEl = document.getElementById('cart-total');
+        const proceedCheckoutBtn = document.getElementById('proceed-checkout-btn');
+
+        const checkoutModal = document.getElementById('checkout-modal');
+        const closeCheckoutBtn = document.getElementById('close-checkout-btn');
+        const checkoutForm = document.getElementById('checkout-form');
+        const checkoutModalTotal = document.getElementById('checkout-modal-total');
+        const checkoutModalCount = document.getElementById('checkout-modal-count');
+
+        const receiptModal = document.getElementById('receipt-modal');
+        const closeReceiptBtn = document.getElementById('close-receipt-btn');
+
+        // Toggle Drawer
+        function toggleCartDrawer(open) {
+            if (open) {
+                cartDrawerBackdrop.classList.remove('hidden');
+                setTimeout(() => cartDrawer.classList.remove('translate-x-full'), 10);
+            } else {
+                cartDrawer.classList.add('translate-x-full');
+                setTimeout(() => cartDrawerBackdrop.classList.add('hidden'), 300);
+            }
+        }
+
+        openCartBtn.addEventListener('click', () => toggleCartDrawer(true));
+        mobileCartBtn.addEventListener('click', () => toggleCartDrawer(true));
+        closeCartBtn.addEventListener('click', () => toggleCartDrawer(false));
+        mobileMenuOrderBtn.addEventListener('click', () => {
+            document.getElementById('mobile-menu').classList.add('hidden');
+            toggleCartDrawer(true);
+        });
+
+        cartDrawerBackdrop.addEventListener('click', (e) => {
+            if (e.target === cartDrawerBackdrop) toggleCartDrawer(false);
+        });
+
+        // Add to Cart Logic
+        function addToCart(id, name, price) {
+            if (cart[id]) {
+                cart[id].qty += 1;
+            } else {
+                cart[id] = { id, name, price, qty: 1 };
+            }
+            updateCartUI();
+            toggleCartDrawer(true);
+        }
+
+        function updateQuantity(id, delta) {
+            if (cart[id]) {
+                cart[id].qty += delta;
+                if (cart[id].qty <= 0) {
+                    delete cart[id];
+                }
+            }
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            cartItemsContainer.innerHTML = '';
+            let subtotal = 0;
+            let totalItems = 0;
+            let hasCake = false;
+
+            const items = Object.values(cart);
+
+            if (items.length === 0) {
+                cartItemsContainer.innerHTML = `
+                    <div class="text-center py-12 text-wheat-700 space-y-3">
+                        <i class="fa-solid fa-basket-shopping text-4xl text-wheat-300"></i>
+                        <p class="text-base font-medium">Your order is empty</p>
+                        <p class="text-xs">Add freshly baked items from our menu to get started!</p>
+                    </div>
+                `;
+                proceedCheckoutBtn.disabled = true;
+            } else {
+                proceedCheckoutBtn.disabled = false;
+                items.forEach(item => {
+                    const itemTotal = item.price * item.qty;
+                    subtotal += itemTotal;
+                    totalItems += item.qty;
+
+                    if (item.id === 'birthday-cake') hasCake = true;
+
+                    const itemEl = document.createElement('div');
+                    itemEl.className = "flex items-center justify-between bg-wheat-50 p-4 rounded-xl border border-wheat-200";
+                    itemEl.innerHTML = `
+                        <div class="space-y-1">
+                            <h4 class="font-heading font-bold text-chocolate-900">${item.name}</h4>
+                            <span class="text-xs text-terracotta-600 font-semibold">$${item.price.toFixed(2)} each</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="flex items-center border border-wheat-300 rounded-lg bg-white overflow-hidden">
+                                <button onclick="updateQuantity('${item.id}', -1)" class="px-2.5 py-1 text-chocolate-900 hover:bg-wheat-100 transition-colors">-</button>
+                                <span class="px-3 text-xs font-bold text-chocolate-900">${item.qty}</span>
+                                <button onclick="updateQuantity('${item.id}', 1)" class="px-2.5 py-1 text-chocolate-900 hover:bg-wheat-100 transition-colors">+</button>
+                            </div>
+                            <span class="font-bold text-chocolate-900 text-sm min-w-[50px] text-right">$${itemTotal.toFixed(2)}</span>
+                        </div>
+                    `;
+                    cartItemsContainer.appendChild(itemEl);
+                });
+            }
+
+            const tax = subtotal * 0.0825;
+            const total = subtotal + tax;
+
+            // Badges
+            if (totalItems > 0) {
+                cartBadgeCount.classList.remove('hidden');
+                cartBadgeCount.textContent = totalItems;
+                mobileCartBadgeCount.classList.remove('hidden');
+                mobileCartBadgeCount.textContent = totalItems;
+            } else {
+                cartBadgeCount.classList.add('hidden');
+                mobileCartBadgeCount.classList.add('hidden');
+            }
+
+            cartSubtotalEl.textContent = `$${subtotal.toFixed(2)}`;
+            cartTaxEl.textContent = `$${tax.toFixed(2)}`;
+            cartTotalEl.textContent = `$${total.toFixed(2)}`;
+
+            checkoutModalTotal.textContent = `$${total.toFixed(2)}`;
+            checkoutModalCount.textContent = `${totalItems} ${totalItems === 1 ? 'item' : 'items'}`;
+
+            // Show cake 48h notice if applicable
+            const cakeNotice = document.getElementById('cake-notice');
+            if (cakeNotice) {
+                if (hasCake) cakeNotice.classList.remove('hidden');
+                else cakeNotice.classList.add('hidden');
+            }
+        }
+
+        // Checkout Modal Triggers
+        proceedCheckoutBtn.addEventListener('click', () => {
+            toggleCartDrawer(false);
+            checkoutModal.classList.remove('hidden');
+            // Set min date to today
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('checkout-date').min = today;
+            document.getElementById('checkout-date').value = today;
+        });
+
+        closeCheckoutBtn.addEventListener('click', () => {
+            checkoutModal.classList.add('hidden');
+        });
+
+        // Format Card Number & Expiry Inputs
+        document.getElementById('card-number').addEventListener('input', (e) => {
+            let v = e.target.value.replace(/\D/g, '').substring(0,16);
+            e.target.value = v.replace(/(.{4})/g, '$1 ').trim();
+        });
+
+        document.getElementById('card-expiry').addEventListener('input', (e) => {
+            let v = e.target.value.replace(/\D/g, '').substring(0,4);
+            if (v.length >= 3) {
+                e.target.value = v.substring(0,2) + '/' + v.substring(2);
+            } else {
+                e.target.value = v;
+            }
+        });
+
+        // Checkout Form Submit -> Process Payment Simulation
+        checkoutForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const payBtn = document.getElementById('pay-submit-btn');
+            const payLabel = document.getElementById('pay-btn-label');
+
+            payBtn.disabled = true;
+            payLabel.textContent = "Processing Card Payment...";
+
+            setTimeout(() => {
+                const name = document.getElementById('checkout-name').value;
+                const date = document.getElementById('checkout-date').value;
+                const time = document.getElementById('checkout-time').value;
+
+                // Render receipt
+                document.getElementById('receipt-order-id').textContent = '#MSB-' + Math.floor(1000 + Math.random() * 9000);
+                document.getElementById('receipt-name').textContent = name;
+                document.getElementById('receipt-pickup-time').textContent = `${date} at ${time}`;
+                document.getElementById('receipt-total-paid').textContent = cartTotalEl.textContent;
+
+                const receiptItemsList = document.getElementById('receipt-item-list');
+                receiptItemsList.innerHTML = '';
+                Object.values(cart).forEach(item => {
+                    const line = document.createElement('div');
+                    line.className = "flex justify-between text-xs";
+                    line.innerHTML = `<span>${item.qty}x ${item.name}</span><span class="font-medium">$${(item.price * item.qty).toFixed(2)}</span>`;
+                    receiptItemsList.appendChild(line);
+                });
+
+                checkoutModal.classList.add('hidden');
+                receiptModal.classList.remove('hidden');
+
+                // Reset Cart & Form
+                cart = {};
+                updateCartUI();
+                checkoutForm.reset();
+                payBtn.disabled = false;
+                payLabel.textContent = "Pay & Place Pickup Order";
+            }, 1500);
+        });
+
+        closeReceiptBtn.addEventListener('click', () => {
+            receiptModal.classList.add('hidden');
+        });
+
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu when clicking a link
+        const mobileLinks = mobileMenu.querySelectorAll('a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Navbar shadow on scroll
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 20) {
+                navbar.classList.add('shadow-md');
+            } else {
+                navbar.classList.remove('shadow-md');
+            }
+        });
+
+        // Contact form submission handling
+        const orderForm = document.getElementById('order-form');
+        const formMessage = document.getElementById('form-message');
+
+        orderForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const item = document.getElementById('item').value;
+            const pickupDate = document.getElementById('pickup-date').value;
+            const message = document.getElementById('message').value.trim();
+
+            const subject = encodeURIComponent(`Bakery Inquiry / Order from ${name} - ${item}`);
+            const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\nSelected Item: ${item}\nPickup Date: ${pickupDate || 'Not specified'}\n\nMessage:\n${message}`);
+            
+            const mailtoUrl = `mailto:hello@maplestreetbakery.com?subject=${subject}&body=${body}`;
+
+            formMessage.classList.remove('hidden', 'bg-rose-100', 'text-rose-800');
+            formMessage.classList.add('bg-emerald-100', 'text-emerald-800', 'border', 'border-emerald-200');
+            formMessage.innerHTML = `
+                <i class="fa-solid fa-circle-check text-emerald-600 mr-2"></i>
+                Thank you, <strong>${name}</strong>! Your message for <strong>${item}</strong> has been prepared. 
+                <br><span class="text-xs mt-1 block">Your email client should open automatically. If not, you can reach us directly at <a href="mailto:hello@maplestreetbakery.com" class="underline font-semibold">hello@maplestreetbakery.com</a> or call (217) 555-0148.</span>
+            `;
+
+            window.location.href = mailtoUrl;
+            orderForm.reset();
+            formMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        });
+    </script>
+</body>
+</html>

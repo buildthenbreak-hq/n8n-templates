@@ -55,17 +55,17 @@
         "operation": "append",
         "documentId": {
           "__rl": true,
-          "value": "1Cewk55I_G7ECkAViFSNXRAccgmRvQjCIJKXTgEo1JFk",
+          "value": "YOUR_GOOGLE_SHEET_ID",
           "mode": "list",
           "cachedResultName": "BTB Leads Demo",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Cewk55I_G7ECkAViFSNXRAccgmRvQjCIJKXTgEo1JFk/edit?usp=drivesdk"
+          "cachedResultUrl": ""
         },
         "sheetName": {
           "__rl": true,
           "value": "gid=0",
           "mode": "list",
           "cachedResultName": "Sheet1",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Cewk55I_G7ECkAViFSNXRAccgmRvQjCIJKXTgEo1JFk/edit#gid=0"
+          "cachedResultUrl": ""
         },
         "columns": {
           "mappingMode": "defineBelow",
@@ -181,7 +181,7 @@
     },
     {
       "parameters": {
-        "sendTo": "buildthenbreak.hq@gmail.com",
+        "sendTo": "your-email@example.com",
         "subject": "=New sales lead: {{ $('On form submission').item.json.Name }}",
         "emailType": "text",
         "message": "={{ $('On form submission').item.json.Name }}\n{{ $('On form submission').item.json.Email }}\n{{ $('On form submission').item.json.Message }}",
@@ -246,17 +246,17 @@
         "operation": "append",
         "documentId": {
           "__rl": true,
-          "value": "1Cewk55I_G7ECkAViFSNXRAccgmRvQjCIJKXTgEo1JFk",
+          "value": "YOUR_GOOGLE_SHEET_ID",
           "mode": "list",
           "cachedResultName": "BTB Leads Demo",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Cewk55I_G7ECkAViFSNXRAccgmRvQjCIJKXTgEo1JFk/edit?usp=drivesdk"
+          "cachedResultUrl": ""
         },
         "sheetName": {
           "__rl": true,
           "value": "gid=0",
           "mode": "list",
           "cachedResultName": "Sheet1",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Cewk55I_G7ECkAViFSNXRAccgmRvQjCIJKXTgEo1JFk/edit#gid=0"
+          "cachedResultUrl": ""
         },
         "columns": {
           "mappingMode": "defineBelow",

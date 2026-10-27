@@ -14,7 +14,7 @@
     },
     {
       "parameters": {
-        "sendTo": "buildthenbreak.hq@gmail.com",
+        "sendTo": "your-email@example.com",
         "subject": "=n8n failed: {{ $json.workflow.name }}",
         "emailType": "text",
         "message": "=Workflow: {{ $json.workflow.name }} Node: {{ $json.execution.lastNodeExecuted }} Error: {{ $json.execution.error.message }} Time: {{ $now.toFormat('d LLL yyyy, HH:mm') }}",
@@ -41,17 +41,17 @@
         "operation": "append",
         "documentId": {
           "__rl": true,
-          "value": "1Cewk55I_G7ECkAViFSNXRAccgmRvQjCIJKXTgEo1JFk",
+          "value": "YOUR_GOOGLE_SHEET_ID",
           "mode": "list",
           "cachedResultName": "BTB Leads Demo",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Cewk55I_G7ECkAViFSNXRAccgmRvQjCIJKXTgEo1JFk/edit?usp=drivesdk"
+          "cachedResultUrl": ""
         },
         "sheetName": {
           "__rl": true,
           "value": 1775646808,
           "mode": "list",
           "cachedResultName": "Alert Log",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Cewk55I_G7ECkAViFSNXRAccgmRvQjCIJKXTgEo1JFk/edit#gid=1775646808"
+          "cachedResultUrl": ""
         },
         "columns": {
           "mappingMode": "defineBelow",

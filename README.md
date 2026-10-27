@@ -38,8 +38,18 @@ Every workflow here was built on camera, broken on purpose, and fixed. The fixes
 ## Video 9: n8n Error Handling
 - `video9-error-alerting.json`: Error Trigger, Gmail alert, Alert Log sheet as a backup when the email fails. Set it as the Error Workflow in any workflow's settings.
 - `video1-lead-sorter-with-error-logging.json`: the lead sorter with "continue using error output", an "AI FAILED - check manually" row, and the trimmed If condition.
+- Import steps: add a second tab called `Alert Log` to your leads sheet with the columns in `video9-alert-log-headers.csv` (Time, Workflow, Error); import both JSONs; add credentials (Gmail, Google Sheets, Gemini); pick your sheet in the three Sheets nodes and set your own email in the Gmail node; publish the alert workflow; in the lead sorter open Settings > Error Workflow and pick it.
 
 ## Video 10: 5 Free Automations for a Small Business
 - `video10-demo1-lead-auto-reply.json`: contact form, sheet row, instant reply.
 - `video10-demo2-invoice-to-sheet.json`: invoice PDF upload, Gemini Analyze Document, sheet row. Test files: `Invoice_Northwind_Supplies.pdf` (text) and `Invoice_Riverside_SCANNED.pdf` (scanned).
 - `video10-demo3-weekly-report.json`: Monday schedule, read Sales tab, AI summary, email. "Always Output Data" is on so empty weeks still send a report.
+
+## Video 11: I Asked 4 Free AIs to Build a Business Website
+- No n8n workflow. The four websites exactly as each AI built them (after the Round 2 to 4 changes and the Formspree fix):
+  - `video11-bakery-site-chatgpt.html`
+  - `video11-bakery-site-claude.html`
+  - `video11-bakery-site-gemini.html`
+  - `video11-bakery-site-kimi.html`
+- To try one: save it as `index.html` in its own folder and drag the folder onto Netlify Drop. Replace `YOUR_FORM_ID` with your own Formspree form ID to make the contact form deliver. Gemini's version never got the Formspree link (that is the point of the video). Kimi's "Pay by card" is a demo and takes no payment: do not put it online for a real business.
+- Live copies: https://maple-chatgpt.netlify.app · https://maple-claude.netlify.app · https://maple-gemini.netlify.app · https://maple-kimi.netlify.app

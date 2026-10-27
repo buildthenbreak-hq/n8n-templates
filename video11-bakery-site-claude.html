@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Maple Street Bakery · Springfield, IL</title>
+<meta name="description" content="Sourdough, croissants, cinnamon rolls and custom birthday cakes at 214 Maple Street, Springfield, IL. Open Monday to Saturday, 7 AM to 3 PM.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Overpass:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --sign:#1d5a44; --sign-dark:#14402f; --flour:#fbfaf5; --crust:#3b2a1e;
+  --butter:#f3cf5c; --maple:#b8402a; --line:#e3dfd2; --muted:#6a6155;
+  --sans:"Overpass","Helvetica Neue",Arial,sans-serif;
+  --serif:"Lora",Georgia,"Times New Roman",serif;
+}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth;scroll-padding-top:64px}
+body{font-family:var(--serif);font-size:1.0625rem;line-height:1.65;color:var(--crust);background:var(--flour)}
+h1,h2,h3,.nav,.btn,label,.price{font-family:var(--sans)}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--butter);outline-offset:2px}
+.wrap{max-width:1040px;margin:0 auto;padding:0 1.25rem}
+section{padding:4.5rem 0}
+h2{font-size:clamp(1.9rem,5vw,2.6rem);font-weight:800;line-height:1.1;letter-spacing:-.01em;margin-bottom:.6rem}
+.lede{color:var(--muted);max-width:46ch;margin-bottom:2rem}
+
+/* nav */
+header{position:sticky;top:0;z-index:10;background:var(--sign-dark);color:#fff}
+.nav{display:flex;align-items:center;justify-content:space-between;height:56px}
+.brand{font-weight:800;text-decoration:none;font-size:1.05rem}
+.nav ul{display:flex;gap:1.4rem;list-style:none;padding:0}
+.nav ul a{text-decoration:none;font-weight:600;font-size:.95rem;opacity:.9}
+.nav ul a:hover{opacity:1;text-decoration:underline}
+@media(max-width:600px){.nav ul{gap:.9rem}.nav ul a{font-size:.85rem}.nav ul li:nth-child(n+4){display:none}}
+
+/* hero: a street sign */
+.hero{background:var(--sign);color:#fff;padding:4rem 0 4.5rem}
+.hero .wrap{display:grid;gap:2.5rem;align-items:center}
+@media(min-width:860px){.hero .wrap{grid-template-columns:1.15fr .85fr}}
+.hero h1{font-size:clamp(2.6rem,8vw,4.6rem);font-weight:800;line-height:1;letter-spacing:-.02em}
+.hero p{margin:1.2rem 0 1.8rem;max-width:34ch;font-size:1.15rem;opacity:.95}
+.btns{display:flex;flex-wrap:wrap;gap:.75rem}
+.btn{display:inline-block;padding:.85rem 1.5rem;border-radius:6px;font-weight:800;font-size:1rem;text-decoration:none;border:2px solid var(--butter);cursor:pointer}
+.btn.primary{background:var(--butter);color:var(--crust)}
+.btn.primary:hover{background:#fff;border-color:#fff}
+.btn.ghost{background:transparent;color:#fff}
+.btn.ghost:hover{background:rgba(255,255,255,.12)}
+.sign{border:6px solid #fff;border-radius:14px;padding:1.4rem 1.6rem;background:var(--sign-dark);box-shadow:0 0 0 4px var(--sign-dark);max-width:380px;justify-self:center;width:100%}
+.sign .num{font-family:var(--sans);font-weight:600;font-size:1.1rem;opacity:.85}
+.sign .street{font-family:var(--sans);font-weight:800;font-size:clamp(2.4rem,9vw,3.4rem);line-height:1.05}
+.sign .rule{height:4px;background:#fff;margin:.9rem 0;border-radius:2px}
+.sign .open{font-family:var(--sans);font-weight:600;display:flex;align-items:center;gap:.6rem}
+.dot{width:.8rem;height:.8rem;border-radius:50%;background:#9aa;flex:none}
+.dot.on{background:var(--butter)}
+
+/* menu */
+.menu{list-style:none;padding:0;border-top:2px solid var(--crust)}
+.menu li{display:grid;grid-template-columns:1fr auto;gap:.2rem 1rem;padding:1.15rem 0;border-bottom:1px solid var(--line)}
+.menu h3{font-size:1.25rem;font-weight:800}
+.price{font-weight:800;font-size:1.25rem;white-space:nowrap}
+.menu p{color:var(--muted);grid-column:1/-1;max-width:52ch}
+.note{margin-top:1.4rem;padding:1rem 1.2rem;background:#fff;border-left:6px solid var(--maple);border-radius:0 6px 6px 0}
+
+/* gallery */
+.gallery{display:grid;gap:1rem;grid-template-columns:1fr}
+@media(min-width:700px){.gallery{grid-template-columns:repeat(3,1fr)}}
+.gallery figure{margin:0}
+.ph{position:relative;aspect-ratio:4/5;border-radius:10px;overflow:hidden;background:var(--sign);color:#fff;display:grid;place-items:center;text-align:center;padding:1rem;font-family:var(--sans);font-weight:600}
+.ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.gallery figcaption{font-family:var(--sans);font-weight:600;margin-top:.55rem}
+
+/* order */
+.order{display:grid;gap:2rem}
+@media(min-width:860px){.order{grid-template-columns:1.1fr .9fr;align-items:start}}
+.items{list-style:none;padding:0;border-top:2px solid var(--crust)}
+.items li{display:grid;grid-template-columns:1fr auto;align-items:center;gap:.5rem 1rem;padding:.9rem 0;border-bottom:1px solid var(--line)}
+.items b{font-family:var(--sans);font-weight:800;font-size:1.1rem}
+.items small{display:block;color:var(--muted);font-family:var(--sans)}
+.qty{display:flex;align-items:center;gap:.4rem;font-family:var(--sans);font-weight:800}
+.qty button{width:44px;height:44px;border-radius:50%;border:2px solid var(--sign);background:#fff;color:var(--sign);font-size:1.4rem;line-height:1;cursor:pointer}
+.qty button:hover{background:var(--sign);color:#fff}
+.qty output{min-width:2ch;text-align:center;font-size:1.15rem}
+.summary{background:#fff;border:2px solid var(--line);border-radius:10px;padding:1.25rem;display:grid;gap:1rem}
+.total{display:flex;justify-content:space-between;font-family:var(--sans);font-weight:800;font-size:1.4rem;border-top:2px solid var(--crust);padding-top:.7rem}
+#lines{list-style:none;padding:0;font-family:var(--sans);display:grid;gap:.25rem}
+#lines li{display:flex;justify-content:space-between}
+#lines .empty{color:var(--muted)}
+#orderStatus{min-height:1.5em;font-family:var(--sans);font-weight:600}
+#orderStatus.ok{color:var(--sign)} #orderStatus.err{color:var(--maple)}
+.fine{font-size:.9rem;color:var(--muted)}
+
+/* hours */
+.alt{background:#f1eee2}
+.hours{width:100%;max-width:460px;border-collapse:collapse;font-family:var(--sans);font-size:1.1rem}
+.hours td{padding:.65rem 0;border-bottom:1px solid #d9d4c3}
+.hours td:last-child{text-align:right;font-weight:600}
+.hours tr.today td{font-weight:800;color:var(--sign)}
+.hours tr.closed td:last-child{color:var(--muted);font-weight:400}
+
+/* contact */
+.cols{display:grid;gap:2.5rem}
+@media(min-width:860px){.cols{grid-template-columns:1fr 1fr}}
+form{display:grid;gap:1rem}
+label{font-weight:600;font-size:.95rem;display:grid;gap:.35rem}
+input,textarea{font:inherit;font-family:var(--serif);padding:.8rem .9rem;border:2px solid #cfc9b6;border-radius:6px;background:#fff;color:var(--crust);width:100%}
+input:focus,textarea:focus{border-color:var(--sign);outline:none}
+textarea{min-height:140px;resize:vertical}
+.hp{position:absolute;left:-9999px}
+#status{min-height:1.5em;font-family:var(--sans);font-weight:600}
+#status.ok{color:var(--sign)} #status.err{color:var(--maple)}
+form .btn{background:var(--sign);color:#fff;border-color:var(--sign)}
+form .btn:hover{background:var(--sign-dark)}
+form .btn[disabled]{opacity:.6;cursor:wait}
+.details{font-style:normal;display:grid;gap:.5rem}
+.details a{font-weight:600}
+
+/* map */
+.map{border:0;width:100%;height:340px;border-radius:10px;background:var(--line);margin:1.2rem 0}
+.dir{display:flex;flex-wrap:wrap;gap:.75rem}
+.dir .btn{border-color:var(--sign);color:var(--sign)}
+.dir .btn:hover{background:var(--sign);color:#fff}
+
+footer{background:var(--sign-dark);color:#fff;padding:2.5rem 0;font-size:.95rem}
+footer .wrap{display:grid;gap:1rem}
+@media(min-width:700px){footer .wrap{grid-template-columns:1fr auto;align-items:end}}
+footer a{opacity:.9}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#top">Maple Street Bakery</a>
+    <nav aria-label="Main"><ul>
+      <li><a href="#menu">Menu</a></li>
+      <li><a href="#hours">Hours</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="#visit">Visit</a></li>
+    </ul></nav>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <h1>Fresh bread at 214 Maple Street.</h1>
+        <p>Sourdough, croissants and cinnamon rolls baked each morning in Springfield. Custom birthday cakes made to order.</p>
+        <div class="btns">
+          <a class="btn primary" href="#menu">See the menu</a>
+          <a class="btn ghost" href="#contact">Order a birthday cake</a>
+        </div>
+      </div>
+      <div class="sign" aria-label="Street sign for Maple Street, number 214">
+        <div class="num">214</div>
+        <div class="street">Maple St</div>
+        <div class="rule"></div>
+        <div class="open"><span class="dot" id="dot"></span><span id="openNow">Mon–Sat, 7 AM–3 PM</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="menu">
+    <div class="wrap">
+      <h2>Menu</h2>
+      <p class="lede">Baked fresh each morning. When something sells out, it&rsquo;s gone until tomorrow.</p>
+      <ul class="menu">
+        <li><h3>Sourdough loaf</h3><span class="price">$8.00</span><p>Slow-fermented, with a crisp crust and a chewy, tangy crumb.</p></li>
+        <li><h3>Croissant</h3><span class="price">$3.50</span><p>Buttery, flaky layers, baked until deep golden.</p></li>
+        <li><h3>Cinnamon roll</h3><span class="price">$4.00</span><p>Soft, spiralled with cinnamon and finished with icing.</p></li>
+        <li><h3>Custom birthday cake</h3><span class="price">from $45</span><p>Tell us the size, flavor and message. Price depends on your design.</p></li>
+      </ul>
+      <p class="note"><strong>Birthday cakes need 48 hours&rsquo; notice.</strong> Send us the details in the form below or call (217) 555-0148.</p>
+    </div>
+  </section>
+
+  <section id="gallery">
+    <div class="wrap">
+      <h2>From our ovens</h2>
+      <p class="lede">A look at what comes out each morning.</p>
+      <div class="gallery">
+        <figure><div class="ph"><span>Sourdough loaf</span><img src="images/sourdough.jpg" alt="A freshly baked sourdough loaf" loading="lazy" onerror="this.remove()"></div><figcaption>Sourdough loaf</figcaption></figure>
+        <figure><div class="ph"><span>Croissants</span><img src="images/croissants.jpg" alt="Golden butter croissants" loading="lazy" onerror="this.remove()"></div><figcaption>Croissants</figcaption></figure>
+        <figure><div class="ph"><span>Cinnamon rolls</span><img src="images/cinnamon-rolls.jpg" alt="Iced cinnamon rolls" loading="lazy" onerror="this.remove()"></div><figcaption>Cinnamon rolls</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <section id="order" class="alt">
+    <div class="wrap">
+      <h2>Order online for pickup</h2>
+      <p class="lede">Choose your items, pay by card, and pick up at 214 Maple Street. Birthday cakes are ordered through the message form below, since the price depends on the design.</p>
+      <div class="order">
+        <ul class="items" id="items"></ul>
+        <div class="summary">
+          <ul id="lines" aria-live="polite"></ul>
+          <div class="total"><span>Total</span><span id="total">$0.00</span></div>
+          <label>Name<input id="oName" autocomplete="name"></label>
+          <label>Email<input id="oEmail" type="email" autocomplete="email"></label>
+          <label>Phone<input id="oPhone" type="tel" autocomplete="tel"></label>
+          <label>Pickup date (Monday to Saturday)<input id="oDate" type="date"></label>
+          <div id="paypal"></div>
+          <p id="orderStatus" role="status" aria-live="polite"></p>
+          <p class="fine">Payment is handled securely by PayPal. You can pay with a debit or credit card without a PayPal account. We never see your card details.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="hours">
+    <div class="wrap">
+      <h2>Opening hours</h2>
+      <p class="lede" id="hoursMsg">Open Monday to Saturday. Closed Sunday.</p>
+      <table class="hours">
+        <tbody>
+          <tr data-d="1"><td>Monday</td><td>7 AM – 3 PM</td></tr>
+          <tr data-d="2"><td>Tuesday</td><td>7 AM – 3 PM</td></tr>
+          <tr data-d="3"><td>Wednesday</td><td>7 AM – 3 PM</td></tr>
+          <tr data-d="4"><td>Thursday</td><td>7 AM – 3 PM</td></tr>
+          <tr data-d="5"><td>Friday</td><td>7 AM – 3 PM</td></tr>
+          <tr data-d="6"><td>Saturday</td><td>7 AM – 3 PM</td></tr>
+          <tr data-d="0" class="closed"><td>Sunday</td><td>Closed</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="contact" class="alt">
+    <div class="wrap cols">
+      <div>
+        <h2>Send us a message</h2>
+        <p class="lede">Questions, cake orders or large orders: write to us and we&rsquo;ll reply by email.</p>
+        <address class="details">
+          <span>214 Maple Street, Springfield, IL 62701</span>
+          <a href="tel:+12175550148">(217) 555-0148</a>
+          <a href="mailto:hello@maplestreetbakery.com">hello@maplestreetbakery.com</a>
+        </address>
+      </div>
+      <form id="form" novalidate>
+        <label>Name<input name="name" autocomplete="name" required></label>
+        <label>Email<input name="email" type="email" autocomplete="email" required></label>
+        <label>Message<textarea name="message" required placeholder="For cakes: size, flavor, message and pickup date"></textarea></label>
+        <input class="hp" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <button class="btn" type="submit" id="send">Send message</button>
+        <p id="status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+
+  <section id="visit">
+    <div class="wrap">
+      <h2>Find us</h2>
+      <p class="lede">214 Maple Street, Springfield, IL 62701</p>
+      <iframe class="map" title="Map showing Maple Street Bakery" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+        src="https://www.google.com/maps?q=214+Maple+Street,+Springfield,+IL+62701&amp;output=embed"></iframe>
+      <div class="dir">
+        <a class="btn" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&amp;destination=214+Maple+Street,+Springfield,+IL+62701">Get directions</a>
+        <a class="btn" href="tel:+12175550148">Call the bakery</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <strong>Maple Street Bakery</strong><br>
+      214 Maple Street, Springfield, IL 62701<br>
+      Mon–Sat, 7 AM–3 PM · Closed Sun
+    </div>
+    <div>
+      <a href="tel:+12175550148">(217) 555-0148</a><br>
+      <a href="mailto:hello@maplestreetbakery.com">hello@maplestreetbakery.com</a><br>
+      &copy; <span id="yr">2026</span> Maple Street Bakery
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var EMAIL="hello@maplestreetbakery.com";
+  document.getElementById("yr").textContent=new Date().getFullYear();
+
+  // Open / closed status, using Springfield (Central) time
+  function centralNow(){
+    try{
+      var p=new Intl.DateTimeFormat("en-US",{timeZone:"America/Chicago",weekday:"short",hour:"numeric",minute:"numeric",hour12:false}).formatToParts(new Date()),o={};
+      p.forEach(function(x){o[x.type]=x.value});
+      var days={Sun:0,Mon:1,Tue:2,Wed:3,Thu:4,Fri:5,Sat:6};
+      return {d:days[o.weekday],m:(parseInt(o.hour,10)%24)*60+parseInt(o.minute,10)};
+    }catch(e){var n=new Date();return {d:n.getDay(),m:n.getHours()*60+n.getMinutes()}}
+  }
+  var t=centralNow(), isOpenDay=t.d>=1&&t.d<=6, open=isOpenDay&&t.m>=420&&t.m<900;
+  var row=document.querySelector('tr[data-d="'+t.d+'"]'); if(row)row.classList.add("today");
+  var msg;
+  if(open)msg="Open now · until 3 PM";
+  else if(isOpenDay&&t.m<420)msg="Opens today at 7 AM";
+  else if(t.d===0)msg="Closed today · opens Monday at 7 AM";
+  else if(t.d===6)msg="Closed · opens Monday at 7 AM";
+  else msg="Closed · opens tomorrow at 7 AM";
+  document.getElementById("openNow").textContent=msg;
+  document.getElementById("dot").className="dot"+(open?" on":"");
+  document.getElementById("hoursMsg").textContent=msg+". Open Monday to Saturday, closed Sunday.";
+
+  // ---- Online ordering ----
+  // Paste your PayPal "Client ID" (from developer.paypal.com > Apps & Credentials > Live) between the quotes.
+  var PAYPAL_CLIENT_ID="YOUR_PAYPAL_CLIENT_ID";
+  var ITEMS=[
+    {id:"sourdough",name:"Sourdough loaf",cents:800},
+    {id:"croissant",name:"Croissant",cents:350},
+    {id:"cinnamon",name:"Cinnamon roll",cents:400}
+  ];
+  var qty={},$=function(i){return document.getElementById(i)};
+  var money=function(c){return "$"+(c/100).toFixed(2)};
+  var itemsEl=$("items");
+  ITEMS.forEach(function(it){
+    qty[it.id]=0;
+    var li=document.createElement("li");
+    li.innerHTML='<div><b>'+it.name+'</b><small>'+money(it.cents)+' each</small></div>'+
+      '<div class="qty"><button type="button" aria-label="Remove one '+it.name+'" data-id="'+it.id+'" data-d="-1">&minus;</button>'+
+      '<output id="q-'+it.id+'" aria-live="polite">0</output>'+
+      '<button type="button" aria-label="Add one '+it.name+'" data-id="'+it.id+'" data-d="1">+</button></div>';
+    itemsEl.appendChild(li);
+  });
+  function totalCents(){return ITEMS.reduce(function(t,it){return t+qty[it.id]*it.cents},0)}
+  function renderCart(){
+    var lines=$("lines"),any=false;lines.innerHTML="";
+    ITEMS.forEach(function(it){
+      $("q-"+it.id).textContent=qty[it.id];
+      if(qty[it.id]){any=true;var l=document.createElement("li");l.innerHTML="<span>"+qty[it.id]+" × "+it.name+"</span><span>"+money(qty[it.id]*it.cents)+"</span>";lines.appendChild(l)}
+    });
+    if(!any){var e=document.createElement("li");e.className="empty";e.textContent="Your order is empty.";lines.appendChild(e)}
+    $("total").textContent=money(totalCents());
+  }
+  itemsEl.addEventListener("click",function(e){
+    var b=e.target.closest("button");if(!b)return;
+    var id=b.dataset.id;qty[id]=Math.max(0,Math.min(20,qty[id]+parseInt(b.dataset.d,10)));renderCart();
+  });
+  renderCart();
+
+  var dateEl=$("oDate"),td=new Date();
+  dateEl.min=td.getFullYear()+"-"+String(td.getMonth()+1).padStart(2,"0")+"-"+String(td.getDate()).padStart(2,"0");
+  function oSay(t,c){var o=$("orderStatus");o.textContent=t;o.className=c||""}
+  function orderProblem(){
+    if(!totalCents())return "Add at least one item to your order.";
+    if(!$("oName").value.trim())return "Please enter your name.";
+    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test($("oEmail").value))return "Please enter a valid email address.";
+    if($("oPhone").value.replace(/\D/g,"").length<7)return "Please enter a phone number we can reach you on.";
+    if(!dateEl.value||dateEl.value<dateEl.min)return "Please choose a pickup date.";
+    if(new Date(dateEl.value+"T12:00:00").getDay()===0)return "We\u2019re closed on Sundays. Please choose Monday to Saturday.";
+    return "";
+  }
+  function orderSummaryText(){
+    return ITEMS.filter(function(i){return qty[i.id]}).map(function(i){return qty[i.id]+" x "+i.name+" ("+money(qty[i.id]*i.cents)+")"}).join("\n");
+  }
+  var ppBox=$("paypal");
+  if(!PAYPAL_CLIENT_ID||PAYPAL_CLIENT_ID==="YOUR_PAYPAL_CLIENT_ID"){
+    ppBox.innerHTML='<p class="fine"><strong>Online payment is being set up.</strong> To order now, call <a href="tel:+12175550148">(217) 555-0148</a>.</p>';
+  }else{
+    var sc=document.createElement("script");
+    sc.src="https://www.paypal.com/sdk/js?client-id="+encodeURIComponent(PAYPAL_CLIENT_ID)+"&currency=USD&components=buttons&enable-funding=card&disable-funding=paylater,venmo";
+    sc.onload=function(){
+      paypal.Buttons({
+        style:{layout:"vertical",shape:"rect",label:"pay"},
+        onClick:function(d,a){var p=orderProblem();if(p){oSay(p,"err");return a.reject()}oSay("");return a.resolve()},
+        createOrder:function(d,a){
+          var items=ITEMS.filter(function(i){return qty[i.id]}).map(function(i){return {name:i.name,quantity:String(qty[i.id]),unit_amount:{currency_code:"USD",value:(i.cents/100).toFixed(2)}}});
+          var v=(totalCents()/100).toFixed(2);
+          return a.order.create({purchase_units:[{description:"Maple Street Bakery pickup order for "+$("oName").value.trim()+" on "+dateEl.value,amount:{currency_code:"USD",value:v,breakdown:{item_total:{currency_code:"USD",value:v}}},items:items}]});
+        },
+        onApprove:function(d,a){
+          return a.order.capture().then(function(r){
+            var info={name:$("oName").value.trim(),email:$("oEmail").value.trim(),phone:$("oPhone").value.trim(),pickup_date:dateEl.value,items:orderSummaryText(),total:money(totalCents()),paypal_order_id:r.id,_subject:"PAID online order for pickup on "+dateEl.value,_replyto:$("oEmail").value.trim(),_captcha:"false",_template:"table"};
+            fetch("https://formsubmit.co/ajax/"+EMAIL,{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify(info)}).catch(function(){});
+            ITEMS.forEach(function(i){qty[i.id]=0});renderCart();
+            oSay("Thank you! Your payment went through. Pick up on "+info.pickup_date+" at 214 Maple Street. A receipt is on its way from PayPal.","ok");
+          });
+        },
+        onError:function(){oSay("Something went wrong with the payment and you have not been charged. Please try again or call (217) 555-0148.","err")},
+        onCancel:function(){oSay("Payment cancelled. Your order is still here when you\u2019re ready.","")}
+      }).render("#paypal");
+    };
+    sc.onerror=function(){ppBox.innerHTML='<p class="fine">Online payment is unavailable right now. Please call <a href="tel:+12175550148">(217) 555-0148</a> to order.</p>'};
+    document.head.appendChild(sc);
+  }
+
+  // Contact form: sends to Formspree
+  var FORM_URL="https://formspree.io/f/YOUR_FORM_ID";
+  var form=document.getElementById("form"), status=document.getElementById("status"), btn=document.getElementById("send");
+  function say(text,cls){status.textContent=text;status.className=cls||""}
+  form.addEventListener("submit",function(e){
+    e.preventDefault();
+    var f=form.elements;
+    if(f._honey.value)return;
+    if(!f.name.value.trim()||!f.email.value.trim()||!f.message.value.trim()){say("Please fill in your name, email and message.","err");return}
+    if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(f.email.value)){say("Please enter a valid email address.","err");return}
+    btn.disabled=true;btn.textContent="Sending…";say("");
+    fetch(FORM_URL,{
+      method:"POST",
+      headers:{"Content-Type":"application/json",Accept:"application/json"},
+      body:JSON.stringify({name:f.name.value.trim(),email:f.email.value.trim(),message:f.message.value.trim()})
+    }).then(function(r){
+      if(!r.ok)throw new Error("status "+r.status);
+      form.reset();
+      say("Thank you! Your message has been sent. We\u2019ll reply by email soon.","ok");
+    }).catch(function(){
+      say("Sorry, your message was not sent. Please try again, or email hello@maplestreetbakery.com or call (217) 555-0148.","err");
+    }).then(function(){btn.disabled=false;btn.textContent="Send message"});
+  });
+})();
+</script>
+</body>
+</html>
