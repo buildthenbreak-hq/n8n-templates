@@ -28,17 +28,17 @@
       "parameters": {
         "documentId": {
           "__rl": true,
-          "value": "1Phs2rpjNW7VujWny6eRmS9ROK4T8hZTotmpE0ufDYS0",
+          "value": "YOUR_GOOGLE_SHEET_ID",
           "mode": "list",
           "cachedResultName": "Small Business Demo",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Phs2rpjNW7VujWny6eRmS9ROK4T8hZTotmpE0ufDYS0/edit?usp=drivesdk"
+          "cachedResultUrl": ""
         },
         "sheetName": {
           "__rl": true,
           "value": 1903461138,
           "mode": "list",
           "cachedResultName": "Sales",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Phs2rpjNW7VujWny6eRmS9ROK4T8hZTotmpE0ufDYS0/edit#gid=1903461138"
+          "cachedResultUrl": ""
         },
         "options": {}
       },
@@ -108,7 +108,7 @@
     },
     {
       "parameters": {
-        "sendTo": "buildthenbreak.hq@gmail.com",
+        "sendTo": "your-email@example.com",
         "subject": "Weekly sales report.",
         "emailType": "text",
         "message": "={{ $json.content.parts[0].text }}",
@@ -130,6 +130,7 @@
       }
     }
   ],
+  "pinData": null,
   "connections": {
     "Schedule Trigger": {
       "main": [
@@ -181,8 +182,11 @@
     "executionOrder": "v1",
     "binaryMode": "separate"
   },
+  "versionId": null,
   "meta": {
     "templateCredsSetupCompleted": false
   },
-  "nodeGroups": []
+  "nodeGroups": [],
+  "id": null,
+  "tags": []
 }

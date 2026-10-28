@@ -41,7 +41,7 @@ Every workflow here was built on camera, broken on purpose, and fixed. The fixes
 - Import steps: add a second tab called `Alert Log` to your leads sheet with the columns in `video9-alert-log-headers.csv` (Time, Workflow, Error); import both JSONs; add credentials (Gmail, Google Sheets, Gemini); pick your sheet in the three Sheets nodes and set your own email in the Gmail node; publish the alert workflow; in the lead sorter open Settings > Error Workflow and pick it.
 
 ## Video 10: 5 Free Automations for a Small Business
-- `video10-demo1-lead-auto-reply.json`: contact form, sheet row, instant reply.
+- `video10-demo1-lead-auto-reply.json`: contact form, spam filter ("Skip spam"), sheet row, instant reply. Replace `YOUR_GOOGLE_SHEET_ID` with your own sheet.
 - `video10-demo2-invoice-to-sheet.json`: invoice PDF upload, Gemini Analyze Document, sheet row. Test files: `Invoice_Northwind_Supplies.pdf` (text) and `Invoice_Riverside_SCANNED.pdf` (scanned).
 - `video10-demo3-weekly-report.json`: Monday schedule, read Sales tab, AI summary, email. "Always Output Data" is on so empty weeks still send a report.
 

@@ -45,17 +45,17 @@
         "operation": "append",
         "documentId": {
           "__rl": true,
-          "value": "1Phs2rpjNW7VujWny6eRmS9ROK4T8hZTotmpE0ufDYS0",
+          "value": "YOUR_GOOGLE_SHEET_ID",
           "mode": "list",
           "cachedResultName": "Small Business Demo",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Phs2rpjNW7VujWny6eRmS9ROK4T8hZTotmpE0ufDYS0/edit?usp=drivesdk"
+          "cachedResultUrl": ""
         },
         "sheetName": {
           "__rl": true,
           "value": 536173170,
           "mode": "list",
           "cachedResultName": "Invoices",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Phs2rpjNW7VujWny6eRmS9ROK4T8hZTotmpE0ufDYS0/edit#gid=536173170"
+          "cachedResultUrl": ""
         },
         "columns": {
           "mappingMode": "defineBelow",
@@ -154,6 +154,7 @@
       }
     }
   ],
+  "pinData": null,
   "connections": {
     "On form submission": {
       "main": [
@@ -194,8 +195,11 @@
     "executionOrder": "v1",
     "binaryMode": "separate"
   },
+  "versionId": null,
   "meta": {
     "templateCredsSetupCompleted": false
   },
-  "nodeGroups": []
+  "nodeGroups": [],
+  "id": null,
+  "tags": []
 }

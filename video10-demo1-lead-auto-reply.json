@@ -34,20 +34,73 @@
     },
     {
       "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": false,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "b7a6e660-f22f-54c0-8e25-b67a14a1e21e",
+              "leftValue": "={{ $json.Message }}",
+              "rightValue": "followers",
+              "operator": {
+                "type": "string",
+                "operation": "notContains"
+              }
+            },
+            {
+              "id": "17f1ab01-5ce9-556b-8aaf-5a128d003e89",
+              "leftValue": "={{ $json.Message }}",
+              "rightValue": "seo service",
+              "operator": {
+                "type": "string",
+                "operation": "notContains"
+              }
+            },
+            {
+              "id": "e1809b20-b13d-5387-a484-249eb02e7a45",
+              "leftValue": "={{ $json.Name }}",
+              "rightValue": "seo service",
+              "operator": {
+                "type": "string",
+                "operation": "notContains"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {
+          "ignoreCase": true
+        }
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        224,
+        0
+      ],
+      "id": "30842999-aa35-5174-82a9-907eddea351c",
+      "name": "Skip spam"
+    },
+    {
+      "parameters": {
         "operation": "append",
         "documentId": {
           "__rl": true,
-          "value": "1Phs2rpjNW7VujWny6eRmS9ROK4T8hZTotmpE0ufDYS0",
+          "value": "YOUR_GOOGLE_SHEET_ID",
           "mode": "list",
           "cachedResultName": "Small Business Demo",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Phs2rpjNW7VujWny6eRmS9ROK4T8hZTotmpE0ufDYS0/edit?usp=drivesdk"
+          "cachedResultUrl": ""
         },
         "sheetName": {
           "__rl": true,
           "value": "gid=0",
           "mode": "list",
           "cachedResultName": "Leads",
-          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1Phs2rpjNW7VujWny6eRmS9ROK4T8hZTotmpE0ufDYS0/edit#gid=0"
+          "cachedResultUrl": ""
         },
         "columns": {
           "mappingMode": "defineBelow",
@@ -104,7 +157,7 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        224,
+        448,
         0
       ],
       "id": "44cbc762-a3bd-4249-b26f-eb0a8dccdc4a",
@@ -121,13 +174,13 @@
         "sendTo": "={{ $json.Email }}",
         "subject": "Thanks, We got your message.",
         "emailType": "text",
-        "message": "={{ $json.Name }}",
+        "message": "=Hi {{ $json.Name }},\n\nThanks for reaching out, we'll get back to you within one business day.\n",
         "options": {}
       },
       "type": "n8n-nodes-base.gmail",
       "typeVersion": 2.2,
       "position": [
-        448,
+        672,
         0
       ],
       "id": "016dec5f-6642-4fc3-8dc2-b2dd2fb339ab",
@@ -140,12 +193,13 @@
       }
     }
   ],
+  "pinData": null,
   "connections": {
     "On form submission": {
       "main": [
         [
           {
-            "node": "Append row in sheet",
+            "node": "Skip spam",
             "type": "main",
             "index": 0
           }
@@ -162,6 +216,17 @@
           }
         ]
       ]
+    },
+    "Skip spam": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "active": false,
@@ -169,8 +234,11 @@
     "executionOrder": "v1",
     "binaryMode": "separate"
   },
+  "versionId": null,
   "meta": {
     "templateCredsSetupCompleted": false
   },
-  "nodeGroups": []
+  "nodeGroups": [],
+  "id": null,
+  "tags": []
 }
