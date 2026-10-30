@@ -32,8 +32,11 @@ Every workflow here was built on camera, broken on purpose, and fixed. The fixes
 ## Video 7: AI Calendar Booking Agent
 - `video7-ai-calendar-booking-agent.json`: chat trigger, AI Agent, check_availability, create_event, list_events, with the date/time and booking rules in the system message. Needs a Google Calendar OAuth credential and a Gemini key.
 
-## Video 8: I Let AI Run My Business Inbox for 7 Days
-- No new file. The experiment runs the Video 6 workflow (`video6-ai-email-assistant.json`) on a real inbox with the sender filter removed.
+## Video 8: I Let AI Run My Business Inbox for 10 Days
+- The experiment ran the Video 6 workflow (`video6-ai-email-assistant.json`) on a real inbox with the sender filter removed. 64 emails arrived, 49 were sorted, 15 were never touched.
+- `video8-ai-email-assistant-with-fixes.json`: the same assistant with the fixes from the video. Retry On Fail (3 tries, 5 seconds apart) on the classifier and the draft writer, and an "Own alert?" check before the classifier so emails with "failed" in the subject, or from your alerts address, go straight to Needs Review. Set your alerts address in that node and pick your labels in the four label nodes.
+- `video8-daily-missed-email-check.json`: every morning at 9, searches `in:inbox -label:ai-processed newer_than:1d` and emails you the list (or "nothing skipped"). Keep it as a separate workflow so it still runs when the assistant is down. Set your own email in the last node.
+- For red runs, add the Video 9 error workflow (`video9-error-alerting.json`) as the Error Workflow in the assistant's settings.
 
 ## Video 9: n8n Error Handling
 - `video9-error-alerting.json`: Error Trigger, Gmail alert, Alert Log sheet as a backup when the email fails. Set it as the Error Workflow in any workflow's settings.

@@ -1,0 +1,123 @@
+{
+  "name": "Daily missed-email check (Video 8)",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 9
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "cd6c4b30-db9b-4fbf-90b3-3194fa7590c0",
+      "name": "Every morning at 9"
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "returnAll": true,
+        "filters": {
+          "q": "in:inbox -label:ai-processed newer_than:1d"
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        220,
+        0
+      ],
+      "id": "960e6dbb-a9d4-40a0-adcd-fc8c68e2ab0e",
+      "name": "Find unlabeled emails",
+      "alwaysOutputData": true,
+      "credentials": {
+        "gmailOAuth2": {
+          "id": null,
+          "name": ""
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const rows = $input.all().map(i => i.json).filter(j => j.id);\nif (!rows.length) {\n  return [{ json: { subject: 'Inbox check: nothing skipped yesterday', body: 'Every inbox email from the last day has the AI Processed label.' } }];\n}\nconst lines = rows.map(j => `- ${j.Subject || j.subject || '(no subject)'}  |  ${j.From || (j.from && j.from.text) || ''}`);\nreturn [{ json: {\n  subject: `Inbox check: ${rows.length} email(s) the assistant skipped`,\n  body: `These inbox emails from the last day have no AI Processed label:\\n\\n${lines.join('\\n')}\\n\\nGmail search: in:inbox -label:ai-processed newer_than:1d`\n} }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        440,
+        0
+      ],
+      "id": "d139adc1-f5b8-45b2-9516-557c50ddbde1",
+      "name": "Build the list"
+    },
+    {
+      "parameters": {
+        "sendTo": "your-email@example.com",
+        "subject": "={{ $json.subject }}",
+        "emailType": "text",
+        "message": "={{ $json.body }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        660,
+        0
+      ],
+      "id": "929bb7ed-7806-4572-b790-9037010ecc78",
+      "name": "Email me the list",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": null,
+          "name": ""
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Every morning at 9": {
+      "main": [
+        [
+          {
+            "node": "Find unlabeled emails",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Find unlabeled emails": {
+      "main": [
+        [
+          {
+            "node": "Build the list",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build the list": {
+      "main": [
+        [
+          {
+            "node": "Email me the list",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  }
+}
