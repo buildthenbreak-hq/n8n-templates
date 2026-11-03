@@ -3,6 +3,28 @@
 Free workflows from the Build Then Break YouTube channel (https://www.youtube.com/@BuildThenBreak).
 Every workflow here was built on camera, broken on purpose, and fixed. The fixes are included.
 
+## Watch order
+
+New to n8n? Watch in this order. The "Files" column names the section below that holds that video's workflows (section numbers follow the order the templates were added, not the channel's video numbers).
+
+| # | Video | Files |
+|---|---|---|
+| **Start here** | | |
+| 1 | [What Is an AI Agent? I Built One. Then It Lied.](https://youtu.be/YVyHxnFd6wA) | Video 3 |
+| 2 | [AI Sorts My Leads in n8n. Then It Broke 3 Times](https://youtu.be/lPwNu1Exbzg) | Video 1 |
+| **Production n8n** ([playlist](https://www.youtube.com/playlist?list=PLBD87MjyasF4)) | | |
+| 3 | [Part 1: Self-Host n8n for Free on Your PC (Docker)](https://youtu.be/IEDtvkKk4ZE) | Video 4 |
+| 4 | [Part 2: n8n Error Handling: My Workflow Failed Silently](https://youtu.be/KVdqqi4dNNw) | Video 9 |
+| 5 | [Part 3: I Let AI Run My Business Inbox for 10 Days](https://youtu.be/iInk9oEfvDQ) (public Fri 6 Nov 2026) | Video 8 |
+| **Builds** | | |
+| 6 | [AI Email Assistant in n8n: Reads Gmail, Drafts Replies](https://youtu.be/WfiweQKkm-Q) | Video 6 |
+| 7 | [Chat With Your PDFs in n8n for Free. Then It Lied.](https://youtu.be/7I0xNO_W7Dc) | Video 5 |
+| 8 | [n8n AI Agent Books Meetings From Chat. It Picked 2023.](https://youtu.be/Sqivae3DsP0) | Video 7 |
+| 9 | [5 n8n Automations for a Small Business (All Free)](https://youtu.be/OtWQ7PEnjMQ) | Video 10 |
+| **Comparisons** | | |
+| 10 | [Zapier vs Make vs n8n: Same AI Workflow, All 3 Broke](https://youtu.be/vMKm-ZAVdYg) | Video 2 |
+| 11 | [ChatGPT vs Claude vs Gemini vs Kimi: Free Website Test](https://youtu.be/V0x1Y1chHB0) | Video 11 |
+
 ## How to import
 1. Download the .json file.
 2. In n8n, open Workflows > Import from File.
