@@ -21,9 +21,10 @@ New to n8n? Watch in this order. The "Files" column names the section below that
 | 7 | [Chat With Your PDFs in n8n for Free. Then It Lied.](https://youtu.be/7I0xNO_W7Dc) | Video 5 |
 | 8 | [n8n AI Agent Books Meetings From Chat. It Picked 2023.](https://youtu.be/Sqivae3DsP0) | Video 7 |
 | 9 | [5 n8n Automations for a Small Business (All Free)](https://youtu.be/OtWQ7PEnjMQ) | Video 10 |
+| 10 | WhatsApp AI Chatbot for a Fast Food Restaurant (public Tue 10 Nov 2026) | Video 12 |
 | **Comparisons** | | |
-| 10 | [Zapier vs Make vs n8n: Same AI Workflow, All 3 Broke](https://youtu.be/vMKm-ZAVdYg) | Video 2 |
-| 11 | [ChatGPT vs Claude vs Gemini vs Kimi: Free Website Test](https://youtu.be/V0x1Y1chHB0) | Video 11 |
+| 11 | [Zapier vs Make vs n8n: Same AI Workflow, All 3 Broke](https://youtu.be/vMKm-ZAVdYg) | Video 2 |
+| 12 | [ChatGPT vs Claude vs Gemini vs Kimi: Free Website Test](https://youtu.be/V0x1Y1chHB0) | Video 11 |
 
 ## How to import
 1. Download the .json file.
@@ -78,3 +79,11 @@ New to n8n? Watch in this order. The "Files" column names the section below that
   - `video11-bakery-site-kimi.html`
 - To try one: save it as `index.html` in its own folder and drag the folder onto Netlify Drop. Replace `YOUR_FORM_ID` with your own Formspree form ID to make the contact form deliver. Gemini's version never got the Formspree link (that is the point of the video). Kimi's "Pay by card" is a demo and takes no payment: do not put it online for a real business.
 - Live copies: https://maple-chatgpt.netlify.app · https://maple-claude.netlify.app · https://maple-gemini.netlify.app · https://maple-kimi.netlify.app
+
+## Video 12: WhatsApp AI Chatbot (Burger Hub, fast food demo)
+- `video12-whatsapp-restaurant-bot.json`: WhatsApp Trigger (On messages) > "Has message?" (stops Meta's sent / delivered / read status updates) > "Is text?" > AI Agent with Gemini and Simple Memory (one conversation per phone number) > WhatsApp reply. Voice notes, photos and anything that isn't text get a fixed "please type your order" reply instead of silence.
+- Credentials: a WhatsApp OAuth credential for the trigger (Meta App ID + App Secret), a WhatsApp API credential for the two reply nodes (a System User token that never expires, not the 24-hour token from the setup page, plus your WhatsApp Business Account ID), and a Gemini key.
+- After import: set `YOUR_PHONE_NUMBER_ID` in both reply nodes (Meta > WhatsApp > API Setup), and change the menu in the AI Agent's system message.
+- n8n on your own PC: Meta can't reach `localhost`. Run a tunnel (for example `cloudflared tunnel --url http://localhost:5678`) and start n8n with `WEBHOOK_URL` set to the tunnel address. A free quick tunnel gets a new address on every restart, so use a named tunnel or a server for a real business.
+- Meta checklist: publish the app (needs a privacy policy URL) and subscribe your WhatsApp Business Account to the app (`POST /{WABA_ID}/subscribed_apps` in the Graph API Explorer), or real messages never reach n8n.
+- Simple Memory is wiped when n8n restarts. For a real restaurant, use a database memory (for example Postgres).
