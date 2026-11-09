@@ -24,7 +24,7 @@ New to n8n? Watch in this order. The "Files" column names the section below that
 | 10 | WhatsApp AI Chatbot for a Fast Food Restaurant (public Tue 10 Nov 2026) | Video 12 |
 | **Comparisons** | | |
 | 11 | [Zapier vs Make vs n8n: Same AI Workflow, All 3 Broke](https://youtu.be/vMKm-ZAVdYg) | Video 2 |
-| 12 | [ChatGPT vs Claude vs Gemini vs Kimi: Free Website Test](https://youtu.be/V0x1Y1chHB0) | Video 11 |
+| 12 | [4 Free AIs Built My Bakery a Website. I Tested Them](https://youtu.be/V0x1Y1chHB0) | Video 11 |
 
 ## How to import
 1. Download the .json file.
