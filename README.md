@@ -15,16 +15,17 @@ New to n8n? Watch in this order. The "Files" column names the section below that
 | **Production n8n** ([playlist](https://www.youtube.com/playlist?list=PLBD87MjyasF4)) | | |
 | 3 | [Part 1: Self-Host n8n for Free on Your PC (Docker)](https://youtu.be/IEDtvkKk4ZE) | Video 4 |
 | 4 | [Part 2: n8n Error Handling: My Workflow Failed Silently](https://youtu.be/KVdqqi4dNNw) | Video 9 |
-| 5 | [Part 3: I Let AI Run My Business Inbox for 10 Days](https://youtu.be/iInk9oEfvDQ) (public Fri 6 Nov 2026) | Video 8 |
+| 5 | [Part 3: I Let AI Run My Business Inbox for 10 Days](https://youtu.be/iInk9oEfvDQ) | Video 8 |
+| 6 | Part 4: n8n Gmail Trigger Not Working: 5 Reasons Emails Get Skipped | Video 13 |
 | **Builds** | | |
-| 6 | [AI Email Assistant in n8n: Reads Gmail, Drafts Replies](https://youtu.be/WfiweQKkm-Q) | Video 6 |
-| 7 | [Chat With Your PDFs in n8n for Free. Then It Lied.](https://youtu.be/7I0xNO_W7Dc) | Video 5 |
-| 8 | [n8n AI Agent Books Meetings From Chat. It Picked 2023.](https://youtu.be/Sqivae3DsP0) | Video 7 |
-| 9 | [5 n8n Automations for a Small Business (All Free)](https://youtu.be/OtWQ7PEnjMQ) | Video 10 |
-| 10 | WhatsApp AI Chatbot for a Fast Food Restaurant (public Tue 10 Nov 2026) | Video 12 |
+| 7 | [AI Email Assistant in n8n: Reads Gmail, Drafts Replies](https://youtu.be/WfiweQKkm-Q) | Video 6 |
+| 8 | [Chat With Your PDFs in n8n for Free. Then It Lied.](https://youtu.be/7I0xNO_W7Dc) | Video 5 |
+| 9 | [n8n AI Agent Books Meetings From Chat. It Picked 2023.](https://youtu.be/Sqivae3DsP0) | Video 7 |
+| 10 | [5 n8n Automations for a Small Business (All Free)](https://youtu.be/OtWQ7PEnjMQ) | Video 10 |
+| 11 | [n8n WhatsApp AI Chatbot. Then It Forgot the Order](https://youtu.be/V70092dao-M) | Video 12 |
 | **Comparisons** | | |
-| 11 | [Zapier vs Make vs n8n: Same AI Workflow, All 3 Broke](https://youtu.be/vMKm-ZAVdYg) | Video 2 |
-| 12 | [4 Free AIs Built My Bakery a Website. I Tested Them](https://youtu.be/V0x1Y1chHB0) | Video 11 |
+| 12 | [Zapier vs Make vs n8n: Same AI Workflow, All 3 Broke](https://youtu.be/vMKm-ZAVdYg) | Video 2 |
+| 13 | [4 Free AIs Built My Bakery a Website. I Tested Them](https://youtu.be/V0x1Y1chHB0) | Video 11 |
 
 ## How to import
 1. Download the .json file.
@@ -87,3 +88,11 @@ New to n8n? Watch in this order. The "Files" column names the section below that
 - n8n on your own PC: Meta can't reach `localhost`. Run a tunnel (for example `cloudflared tunnel --url http://localhost:5678`) and start n8n with `WEBHOOK_URL` set to the tunnel address. A free quick tunnel gets a new address on every restart, so use a named tunnel or a server for a real business.
 - Meta checklist: publish the app (needs a privacy policy URL) and subscribe your WhatsApp Business Account to the app (`POST /{WABA_ID}/subscribed_apps` in the Graph API Explorer), or real messages never reach n8n.
 - Simple Memory is wiped when n8n restarts. For a real restaurant, use a database memory (for example Postgres).
+
+## Video 13: n8n Gmail Trigger Not Working, 5 Reasons Emails Get Skipped
+- `video13-gmail-trigger-5-fixes.json`: the two-step test from the video (Gmail Trigger every minute > Gmail "Add label" `Seen by n8n`), with all five fixes already in. If an email gets the label, n8n saw it.
+- The 5 reasons, as tested on n8n 2.42: (1) the workflow was saved but never **published**; (2) **Read status: unread only** and the email was read while n8n was off, so it is never picked up; (3) a change was **saved but not published again**, so the old version kept running; (4) the trigger was limited to the **INBOX** label and a Gmail filter skipped the inbox; (5) **Execute Once** on the next step, so of 3 emails in one poll only the first was handled.
+- Setup: create a Gmail label called `Seen by n8n`, connect your Gmail credential on both nodes, pick the label in the second node, publish, send yourself a test email.
+- Good news: the trigger remembers its last check, so emails that arrive while n8n is down are picked up after a restart (up to "Max Emails per Poll" per minute), as long as they are still unread or you use "Unread and read".
+- Also check: if your Gmail credential uses your own Google Cloud OAuth app in "Testing" mode, Google expires the connection after 7 days. Set the app to "In production".
+- Safety net: the daily missed-email check from Video 8 (`video8-daily-missed-email-check.json`) finds anything that slipped through.

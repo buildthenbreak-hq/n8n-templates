@@ -1,0 +1,85 @@
+{
+  "name": "Gmail Trigger test with 5 fixes (Video 13)",
+  "nodes": [
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "filters": {
+          "q": "-label:seen-by-n8n",
+          "readStatus": "both"
+        }
+      },
+      "type": "n8n-nodes-base.gmailTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        0,
+        0
+      ],
+      "name": "Gmail Trigger",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": null,
+          "name": ""
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "addLabels",
+        "messageId": "={{ $json.id }}",
+        "labelIds": []
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        224,
+        0
+      ],
+      "name": "Add label to message",
+      "executeOnce": false,
+      "credentials": {
+        "gmailOAuth2": {
+          "id": null,
+          "name": ""
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Gmail Trigger · 5 fixes (Build Then Break, Video 13)\n\n1. **Publish** the workflow (Save alone never runs on its own).\n2. Read status: **Unread and read**, plus Search `-label:seen-by-n8n` so nothing runs twice.\n3. After every change: **publish again**.\n4. No INBOX label filter: Gmail filters can move an email out of the inbox first.\n5. Settings tab of the label step: **Execute Once off**.\n\nSetup: create a Gmail label called `Seen by n8n`, connect your Gmail credential on both nodes, choose the label in the second node, publish, send yourself a test email.",
+        "height": 380,
+        "width": 520
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -120,
+        -460
+      ],
+      "name": "Read me"
+    }
+  ],
+  "connections": {
+    "Gmail Trigger": {
+      "main": [
+        [
+          {
+            "node": "Add label to message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  }
+}
