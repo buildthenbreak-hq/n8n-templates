@@ -16,7 +16,8 @@ New to n8n? Watch in this order. The "Files" column names the section below that
 | 3 | [Part 1: Self-Host n8n for Free on Your PC (Docker)](https://youtu.be/IEDtvkKk4ZE) | Video 4 |
 | 4 | [Part 2: n8n Error Handling: My Workflow Failed Silently](https://youtu.be/KVdqqi4dNNw) | Video 9 |
 | 5 | [Part 3: I Let AI Run My Business Inbox for 10 Days](https://youtu.be/iInk9oEfvDQ) | Video 8 |
-| 6 | Part 4: n8n Gmail Trigger Not Working: 5 Reasons Emails Get Skipped | Video 13 |
+| 6 | [Part 4: n8n Gmail Trigger Not Working: 5 Reasons Emails Get Skipped](https://youtu.be/g9O78I-DPPg) | Video 13 |
+| 7 | Part 5: Claude Built My n8n Lead Agent. It Broke 6 Times | Video 14 |
 | **Builds** | | |
 | 7 | [AI Email Assistant in n8n: Reads Gmail, Drafts Replies](https://youtu.be/WfiweQKkm-Q) | Video 6 |
 | 8 | [Chat With Your PDFs in n8n for Free. Then It Lied.](https://youtu.be/7I0xNO_W7Dc) | Video 5 |
@@ -96,3 +97,10 @@ New to n8n? Watch in this order. The "Files" column names the section below that
 - Good news: the trigger remembers its last check, so emails that arrive while n8n is down are picked up after a restart (up to "Max Emails per Poll" per minute), as long as they are still unread or you use "Unread and read".
 - Also check: if your Gmail credential uses your own Google Cloud OAuth app in "Testing" mode, Google expires the connection after 7 days. Set the app to "In production".
 - Safety net: the daily missed-email check from Video 8 (`video8-daily-missed-email-check.json`) finds anything that slipped through.
+
+## Video 14: Claude Built My n8n Lead Agent. It Broke 6 Times
+- `video14-claude-lead-agent-6-fixes.json`: the workflow Claude wrote from one prompt (Lead Form > AI Agent on Gemini rates Hot / Warm / Cold > Google Sheets > If Hot: email me + Gmail draft reply), with the six fixes from the video already in: retry on the AI step, a 2-minute workflow timeout, the `gemini-flash-lite-latest` model, and every placeholder named so you cannot miss it.
+- The prompt I gave Claude, word for word: *Build me an n8n workflow that I can import. When someone fills in a lead form (name, email, company, budget, message), an AI agent should read it and decide if the lead is Hot, Warm or Cold, with a one-line reason. Save every lead to a Google Sheet with the rating and the reason. If the lead is Hot, send me an email with the details and also create a Gmail draft reply to the lead. Use Google Gemini as the AI model (free tier). I use self-hosted n8n. Give me the complete workflow JSON.*
+- The 6 breaks, as tested on n8n 2.42: (1) on import n8n attached the first Gemini credential it found, an old test key, and never asked; (2) the model name Claude wrote from memory (`gemini-2.5-flash`) had been retired by Google; (3) a 503 "high demand" from Google with no retry in the workflow; (4) with retry on, a run spun for 1 min 38 s and still failed, because there was no time limit; (5) the sheet ID was a placeholder, and picking the real sheet wiped all 8 column values; (6) everything green, "Succeeded", and the alert went to `you@example.com` while the draft ended with `[Your name]`.
+- Setup after import (5 minutes): open **every** node and check its credential; in the Gemini node pick a model from the live list; create a Google Sheet with a tab `Leads` and the header row `Date, Name, Email, Company, Budget, Message, Rating, Reason`, pick it From list in "Save Lead to Sheet" and re-enter the 8 values if they went blank; put your own address in "Email Me the Hot Lead" (To) and your name at the end of "Create Draft Reply"; send one real test through the form's Test URL and check the sheet and your inbox, not the green tick.
+- The form page says "Your response has been recorded" no matter what happens after it. That is why the alert has to work.

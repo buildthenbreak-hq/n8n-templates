@@ -1,0 +1,402 @@
+{
+  "name": "AI Lead Agent (Claude-built, 6 fixes in) - Build Then Break Video 14",
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "Contact us",
+        "formDescription": "Tell us about your project and we will get back to you.",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Name",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Email",
+              "fieldType": "email",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Company"
+            },
+            {
+              "fieldLabel": "Budget",
+              "fieldType": "dropdown",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "Under $500"
+                  },
+                  {
+                    "option": "$500 - $2,000"
+                  },
+                  {
+                    "option": "$2,000 - $10,000"
+                  },
+                  {
+                    "option": "Over $10,000"
+                  }
+                ]
+              },
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Message",
+              "fieldType": "textarea",
+              "requiredField": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "a1f0c2d4-1111-4a6b-9c01-000000000001",
+      "name": "Lead Form",
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.2,
+      "position": [
+        0,
+        0
+      ],
+      "webhookId": "b7c3e9a0-2222-4d1e-8f02-000000000002"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Rate this sales lead.\n\nName: {{ $json.Name }}\nEmail: {{ $json.Email }}\nCompany: {{ $json.Company }}\nBudget: {{ $json.Budget }}\nMessage: {{ $json.Message }}",
+        "hasOutputParser": true,
+        "options": {
+          "systemMessage": "You are a sales assistant that qualifies inbound leads for a small business.\n\nRate each lead as exactly one of: Hot, Warm, Cold.\n- Hot: clear need, budget of $2,000 or more, wants to start soon or asks for a call or quote.\n- Warm: real interest but low budget, vague timing or missing details.\n- Cold: spam, students, job seekers, vendors selling to us, or no real need.\n\nGive one short sentence explaining the rating. Use only the information in the form. Do not invent facts."
+        }
+      },
+      "id": "a1f0c2d4-1111-4a6b-9c01-000000000003",
+      "name": "Rate Lead",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.7,
+      "position": [
+        240,
+        0
+      ],
+      "retryOnFail": true,
+      "maxTries": 3,
+      "waitBetweenTries": 5000
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-flash-lite-latest",
+        "options": {
+          "temperature": 0.2
+        }
+      },
+      "id": "a1f0c2d4-1111-4a6b-9c01-000000000004",
+      "name": "Google Gemini Chat Model",
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        200,
+        220
+      ],
+      "credentials": {
+        "googlePalmApi": {
+          "id": "REPLACE_ME",
+          "name": "Google Gemini (your own key from AI Studio)"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\n  \"rating\": \"Hot\",\n  \"reason\": \"Has a $5,000 budget and wants to start this month.\"\n}"
+      },
+      "id": "a1f0c2d4-1111-4a6b-9c01-000000000005",
+      "name": "Structured Output Parser",
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.2,
+      "position": [
+        400,
+        220
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "PASTE_YOUR_SHEET_ID_OR_PICK_FROM_LIST",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Leads",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Date": "={{ $now.toFormat('yyyy-MM-dd HH:mm') }}",
+            "Name": "={{ $('Lead Form').item.json.Name }}",
+            "Email": "={{ $('Lead Form').item.json.Email }}",
+            "Company": "={{ $('Lead Form').item.json.Company }}",
+            "Budget": "={{ $('Lead Form').item.json.Budget }}",
+            "Message": "={{ $('Lead Form').item.json.Message }}",
+            "Rating": "={{ $json.output.rating }}",
+            "Reason": "={{ $json.output.reason }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Date",
+              "displayName": "Date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Company",
+              "displayName": "Company",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Budget",
+              "displayName": "Budget",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Message",
+              "displayName": "Message",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Rating",
+              "displayName": "Rating",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Reason",
+              "displayName": "Reason",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "a1f0c2d4-1111-4a6b-9c01-000000000006",
+      "name": "Save Lead to Sheet",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        600,
+        0
+      ],
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "REPLACE_ME",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "c0ffee00-3333-4b2a-9d03-000000000007",
+              "leftValue": "={{ $('Rate Lead').item.json.output.rating }}",
+              "rightValue": "Hot",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "a1f0c2d4-1111-4a6b-9c01-000000000008",
+      "name": "Is Hot?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        820,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "sendTo": "PUT_YOUR_OWN_EMAIL_HERE",
+        "subject": "=Hot lead: {{ $('Lead Form').item.json.Name }} ({{ $('Lead Form').item.json.Company }})",
+        "emailType": "text",
+        "message": "=A new HOT lead just came in.\n\nName: {{ $('Lead Form').item.json.Name }}\nEmail: {{ $('Lead Form').item.json.Email }}\nCompany: {{ $('Lead Form').item.json.Company }}\nBudget: {{ $('Lead Form').item.json.Budget }}\n\nMessage:\n{{ $('Lead Form').item.json.Message }}\n\nWhy it is hot: {{ $('Rate Lead').item.json.output.reason }}\n\nA draft reply is waiting in your Gmail drafts.",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "id": "a1f0c2d4-1111-4a6b-9c01-000000000009",
+      "name": "Email Me the Hot Lead",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        1060,
+        -120
+      ],
+      "webhookId": "d4e5f6a7-4444-4c3b-8e04-000000000010",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "REPLACE_ME",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "draft",
+        "subject": "=Thanks for reaching out, {{ $('Lead Form').item.json.Name }}",
+        "emailType": "text",
+        "message": "=Hi {{ $('Lead Form').item.json.Name }},\n\nThanks for getting in touch about your project. It sounds like a good fit for what we do.\n\nCould we set up a short call this week to go through the details? Let me know two or three times that work for you.\n\nBest regards,\nPUT_YOUR_NAME_HERE",
+        "options": {
+          "sendTo": "={{ $('Lead Form').item.json.Email }}"
+        }
+      },
+      "id": "a1f0c2d4-1111-4a6b-9c01-000000000011",
+      "name": "Create Draft Reply",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        1060,
+        100
+      ],
+      "webhookId": "e5f6a7b8-5555-4d4c-9f05-000000000012",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "REPLACE_ME",
+          "name": "Gmail account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Lead Form": {
+      "main": [
+        [
+          {
+            "node": "Rate Lead",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Rate Lead",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "Rate Lead",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Rate Lead": {
+      "main": [
+        [
+          {
+            "node": "Save Lead to Sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save Lead to Sheet": {
+      "main": [
+        [
+          {
+            "node": "Is Hot?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Is Hot?": {
+      "main": [
+        [
+          {
+            "node": "Email Me the Hot Lead",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Create Draft Reply",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        []
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1",
+    "executionTimeout": 120
+  },
+  "active": false
+}
